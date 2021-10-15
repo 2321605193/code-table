@@ -1,13 +1,13 @@
+<template>
+  <div>分页器</div>
+</template>
 
-
-
+<script>
 import { defineComponent } from '@vue/composition-api'
-import { tableProps } from './types'
 
 export default defineComponent({
-  props: tableProps,
   setup() {
 
   },
 })
-
+</script>

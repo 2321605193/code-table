@@ -1,13 +1,13 @@
+<template>
+  <div>theader</div>
+</template>
 
-
-
+<script>
 import { defineComponent } from '@vue/composition-api'
-import { tableProps } from './types'
 
 export default defineComponent({
-  props: tableProps,
   setup() {
 
   },
 })
-
+</script>

@@ -29,13 +29,23 @@ export type IxPublicPropTypes<O> = O extends object
 
 // Props 定义在这里
 export const tableProps = {
-  test: {
+  data: {
+    type: Array,
+    default: [],
+  },
+  columns: {
+    type: Array,
+    default: [],
+  },
+  showPagination: {
     type: Boolean,
-    default: false,
+    default: true,
   },
 }
 
 export type TablePublicProps = IxPublicPropTypes<typeof tableProps>
 
+
+export type TableData = Record<string, any>[];
 
 
