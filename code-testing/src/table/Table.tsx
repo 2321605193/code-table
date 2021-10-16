@@ -2,11 +2,23 @@
 
 
 import { defineComponent } from '@vue/composition-api'
-import { tableProps } from './types'
+
+import TableHeader from './table-header';
+import TableBody from './table-body';
 
 export default defineComponent({
-  props: tableProps,
+
   setup() {
+
+
+    return () => {
+      return (
+        <table>
+          <TableHeader  />
+          <TableBody  />
+        </table>
+      )
+    }
 
   },
 })

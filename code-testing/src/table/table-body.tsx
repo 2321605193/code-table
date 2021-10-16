@@ -1,13 +1,17 @@
-<template>
-  <div>theader</div>
-</template>
 
-<script>
+
+
+
 import { defineComponent } from '@vue/composition-api'
 
 export default defineComponent({
   setup() {
 
+    return () => {
+      return (
+        <div>tbody</div>
+      )
+    }
   },
 })
-</script>
+

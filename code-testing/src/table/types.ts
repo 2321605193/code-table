@@ -31,13 +31,18 @@ export type IxPublicPropTypes<O> = O extends object
 export const tableProps = {
   data: {
     type: Array,
-    default: [],
+    default: (): Record<string, any>[] => ([]),
   },
   columns: {
     type: Array,
-    default: [],
+    default: (): Record<string, any>[] => ([]),
   },
   showPagination: {
+    type: Boolean,
+    default: true,
+  },
+
+  showHeader: {
     type: Boolean,
     default: true,
   },

@@ -1,14 +1,14 @@
 <template>
-  <TestTable :tableData="tableData" :column="tableColumns">
-    <template #name="{value}">
+  <TestTable :data="getTableData" :columns="getTableColums">
+    <!-- <template #name="{value}">
       <span>{{ value }}</span>
-    </template>
+    </template> -->
   </TestTable>
 </template>
 
 <script lang="ts">
 import { TestTable } from '../src/table'
-import { defineComponent, h, reactive } from '@vue/composition-api'
+import { computed, defineComponent, h, reactive } from '@vue/composition-api'
 
 const data = Array.from({ length:25 }, (value, index) => {
   return {
@@ -40,10 +40,18 @@ export default defineComponent({
     TestTable,
   },
   setup() {
-    const tableData = reactive(data)
-    const tableColumns = reactive(columns)
+    const tableData = data
+    const tableColumns = columns
 
-    return { tableData, tableColumns }
+    const getTableData = computed(()=>{
+      return tableData
+    })
+
+    const getTableColums = computed(() => {
+      return tableColumns
+    })
+
+    return { getTableData, getTableColums }
   },
 })
 </script>
