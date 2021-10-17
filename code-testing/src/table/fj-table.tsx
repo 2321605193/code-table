@@ -13,28 +13,28 @@ export default defineComponent({
     let tableData: TableData = reactive(props.data)
     let columns = reactive(props.columns)
     const showHeader = ref(props.showHeader);
+    const showIndex = ref(props.showIndex)
 
     let page = ref(1)
     let size = ref(10)
 
     // 获取table总数据
-    const getTableData = ()=>{
-      return tableData.values
-    }
+    const getTableData = computed(()=>{
+      return tableData
+    })
 
-    const getTableColums = () => {
-      return columns.values
-    }
-
+    const getTableColums = computed(() => {
+      return columns
+    })
     // 分页
     const workingPagingData = (page: number, size: number): TableData => {
       return tableData.slice((page)*size, page*size + 1);
     }
 
     // 分页、排序后的结果
-    const filterTableData = (): TableData => {
+    const filterTableData = computed((): TableData => {
       return tableData
-    }
+    })
 
     // 页码改变
     const pageChange = (newPage: number) => {
@@ -47,6 +47,7 @@ export default defineComponent({
     }
 
     provide('tableProvide', {
+      showIndex,
       filterTableData,
       getTableData,
       getTableColums,

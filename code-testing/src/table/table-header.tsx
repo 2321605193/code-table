@@ -6,17 +6,17 @@
 import { defineComponent, inject } from '@vue/composition-api'
 import {VNode} from 'vue';
 import TableRow from './table-row';
-import TableCell from './table-cell';
+import HeaderCell from './header-cell';
 import SortButton from './sort-button'
 
 export default defineComponent({
   setup () {
 
-    const { getTableColums, showHeader }  = inject('tableProvide')
+    const { getTableColums, showHeader, showIndex }  = inject('tableProvide')
     return () => {
 
       let children: VNode | VNode[] | null = [];
-      const columns: Record<string, any>[] = []
+      const columns: Record<string, any>[] = getTableColums.value
 
       if (!showHeader) {
         children=null
@@ -28,13 +28,20 @@ export default defineComponent({
             sortButton = SortButton;
           }
 
-          return <TableCell key={column.key}>
-              <span>{column.title}</span>
+          return (
+            <HeaderCell>
+              <span class='fj-table-header__cell'>{column.title}</span>
               <sortButton />
-            </TableCell>  
+            </HeaderCell>
+          )  
         })
       }
 
+      children?.unshift((
+        <HeaderCell>
+          <span class='fj-table-header__cell'>序号</span>
+        </HeaderCell>
+      ))
       
 
       return (

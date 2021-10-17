@@ -10,13 +10,19 @@ export default defineComponent({
 
   setup() {
 
-
     return () => {
       return (
-        <table>
-          <TableHeader  />
-          <TableBody  />
-        </table>
+        <section class='fj-table'>
+       
+            <table cellspacing={0} cellpadding={0}>
+              <TableHeader  />
+            </table>
+
+            <table cellspacing={0} cellpadding={0}>
+              <TableBody  />
+            </table>
+    
+        </section>
       )
     }
 

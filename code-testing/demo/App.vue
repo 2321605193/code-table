@@ -1,5 +1,5 @@
 <template>
-  <TestTable :data="getTableData" :columns="getTableColums">
+  <TestTable :data="getTableData" :columns="getTableColums" :showIndex="true">
     <!-- <template #name="{value}">
       <span>{{ value }}</span>
     </template> -->

@@ -46,6 +46,11 @@ export const tableProps = {
     type: Boolean,
     default: true,
   },
+
+  showIndex: {
+    type: Boolean,
+    default: false,
+  },
 }
 
 export type TablePublicProps = IxPublicPropTypes<typeof tableProps>

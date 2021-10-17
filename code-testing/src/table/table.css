@@ -1,0 +1,22 @@
+.common-padding {
+    padding: 10px 20px
+}
+
+.fj-table {
+    display: inline-block;
+    margin: auto;
+    margin-top: 20px;
+    margin-left: 100px;
+    
+    border: 1px solid #f0f0f0;
+}
+
+.fj-table table{
+    width: 100%;
+    border-collapse: collapse;
+ }
+
+.fj-table__row {
+    border-bottom: 1px solid #f0f0f0;
+}
+
