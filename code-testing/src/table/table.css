@@ -1,5 +1,5 @@
 .common-padding {
-    padding: 10px 20px
+    padding: 5px 20px
 }
 
 .fj-table {
@@ -7,16 +7,56 @@
     margin: auto;
     margin-top: 20px;
     margin-left: 100px;
+}
+.fj-table-content {
+    display: inline-block;
+
     
     border: 1px solid #f0f0f0;
 }
 
-.fj-table table{
+.fj-table-content table{
+    display: inline-block;
     width: 100%;
     border-collapse: collapse;
+ }
+ 
+
+ .fj-table-content .fj-table-body tbody {
+    display: block;
+    height: 420px;
+    overflow-y: scroll;
  }
 
 .fj-table__row {
     border-bottom: 1px solid #f0f0f0;
 }
 
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+    width: 4px;
+}
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow:inset006pxrgba(0,0,0,0.3);
+    border-radius:10px;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    border-radius:10px;
+    background:rgba(0,0,0,0.1);
+    -webkit-box-shadow: inset006pxrgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background:rgba(39, 38, 38, 0.4);
+}
+
+
+
+
+.pagination-content {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}

@@ -7,21 +7,17 @@ import TableHeader from './table-header';
 import TableBody from './table-body';
 
 export default defineComponent({
-
+  name: 'Table',
   setup() {
 
     return () => {
       return (
-        <section class='fj-table'>
+        <section class='fj-table-content'>
        
-            <table cellspacing={0} cellpadding={0}>
+            <table class='fj-table-body' cellspacing={0} cellpadding={0}>
               <TableHeader  />
-            </table>
-
-            <table cellspacing={0} cellpadding={0}>
               <TableBody  />
             </table>
-    
         </section>
       )
     }

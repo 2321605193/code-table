@@ -2,17 +2,18 @@
 
 
 
-import { defineComponent, inject } from '@vue/composition-api'
+import { defineComponent, inject, reactive } from '@vue/composition-api'
 import { TableData } from './types';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 export default defineComponent({
+  name: 'TableBody',
   setup() {
   const { filterTableData,  getTableColums, showIndex} = inject('tableProvide')
-    let columns: Record<string, any>[] = getTableColums.value;
-    let showTableData: TableData = filterTableData.value;
+    let columns: Record<string, any>[] = reactive(getTableColums.value);
+
     return () => {
-      let rowList = showTableData.map((row, rowIndex) => {
+      let rowList = filterTableData.value.map((row, rowIndex) => {
 
         let columnsList = columns.map((column, colIndex) => {
            return (

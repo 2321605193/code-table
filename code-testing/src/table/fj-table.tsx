@@ -1,7 +1,8 @@
 
-import { defineComponent, reactive, ref, watch, provide, computed } from '@vue/composition-api'
+import { defineComponent, reactive, ref, provide, computed } from '@vue/composition-api'
 import { TableData, tableProps } from './types'
 import Table from './table';
+import Pagination from './pagination';
 
 
 
@@ -12,30 +13,31 @@ export default defineComponent({
 
     let tableData: TableData = reactive(props.data)
     let columns = reactive(props.columns)
-    const showHeader = ref(props.showHeader);
+    const showHeader = ref(props.showHeader)
     const showIndex = ref(props.showIndex)
+    let showPagination = ref(props.showPagination)
 
     let page = ref(1)
     let size = ref(10)
 
     // 获取table总数据
-    const getTableData = computed(()=>{
+    let getTableData = computed(()=>{
       return tableData
     })
 
-    const getTableColums = computed(() => {
+    let getTableColums = computed(() => {
       return columns
     })
-    // 分页
-    const workingPagingData = (page: number, size: number): TableData => {
-      return tableData.slice((page)*size, page*size + 1);
-    }
 
-    // 分页、排序后的结果
-    const filterTableData = computed((): TableData => {
-      return tableData
+    let total = computed(()=> {
+      return tableData.length;
     })
 
+
+
+
+
+    // 分页、排序后的结果
     // 页码改变
     const pageChange = (newPage: number) => {
       page.value = newPage;
@@ -48,17 +50,28 @@ export default defineComponent({
 
     provide('tableProvide', {
       showIndex,
-      filterTableData,
+      total,
+      filterTableData: computed(() => {
+        return tableData.slice((page.value - 1 ) * size.value, page.value * size.value);
+      }),
       getTableData,
       getTableColums,
       pageChange,
       sizeChange,
-      showHeader
+      showHeader,
+      page,
+      size
     })
 
     return () => {
+      let pagination = showPagination.value ? Pagination : null;
+
       return (
-        <Table /> 
+        <section class='fj-table'>
+          <Table /> 
+          <br/>
+          <pagination />
+        </section>
       )
     }
   },

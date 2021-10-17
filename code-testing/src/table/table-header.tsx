@@ -10,6 +10,7 @@ import HeaderCell from './header-cell';
 import SortButton from './sort-button'
 
 export default defineComponent({
+  name: 'TableHeader',
   setup () {
 
     const { getTableColums, showHeader, showIndex }  = inject('tableProvide')
@@ -45,7 +46,9 @@ export default defineComponent({
       
 
       return (
-        <TableRow>{children}</TableRow>
+        <thead>
+          <TableRow>{children}</TableRow>
+        </thead>
       )
     }
   },

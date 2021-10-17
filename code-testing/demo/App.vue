@@ -10,7 +10,7 @@
 import { TestTable } from '../src/table'
 import { computed, defineComponent, h, reactive } from '@vue/composition-api'
 
-const data = Array.from({ length:25 }, (value, index) => {
+const data = Array.from({ length: 100 }, (value, index) => {
   return {
     name: 'junjun' + index,
     age: 20 + index,
