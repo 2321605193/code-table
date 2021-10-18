@@ -33,7 +33,7 @@ export default defineComponent({
 
    
 
-        if (showIndex) {
+        if (showIndex.value) {
           columnsList.unshift((
             <TableCell> { (getPage.value - 1) * getSize.value + rowIndex + 1 } </TableCell>
           ))

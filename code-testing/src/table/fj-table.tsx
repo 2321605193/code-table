@@ -22,10 +22,6 @@ export default defineComponent({
     let size = ref(10)
 
     // 获取table总数据
-    let getTableData = computed(()=>{
-      return tableData
-    })
-
     let getTableColums = computed(() => {
       return columns
     })
@@ -79,11 +75,14 @@ export default defineComponent({
       filterTableData: computed(() => {
         let templateData = tableData.slice();
         if (getSortRule.value) {
-          return templateData.sort((curr, next)=> getSortRule.value(curr, next)).slice((page.value - 1 ) * size.value, page.value * size.value)
+          templateData.sort((curr, next)=> getSortRule.value(curr, next))
         }
-        return templateData.slice((page.value - 1 ) * size.value, page.value * size.value);
+        if (showPagination.value) {
+          return templateData.slice((page.value - 1 ) * size.value, page.value * size.value);
+        }
+        return templateData
+        
       }),
-      getTableData,
       getTableColums,
       pageChange,
       sizeChange,

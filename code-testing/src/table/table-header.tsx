@@ -18,8 +18,8 @@ export default defineComponent({
       let children: VNode | VNode[] | null = [];
       const columns: Record<string, any>[] = getTableColums.value
 
-      if (!showHeader) {
-        children=null
+      if (!showHeader.value) {
+        children = null
       } else {
         children = columns.map((column: Record<string, any>) => {
 
@@ -41,11 +41,14 @@ export default defineComponent({
         })
       }
 
-      children?.unshift((
-        <HeaderCell>
-          <span class='fj-table-header__cell'>序号</span>
-        </HeaderCell>
-      ))
+      if (showIndex.value) {
+        children?.unshift((
+          <HeaderCell>
+            <span class='fj-table-header__cell'>序号</span>
+          </HeaderCell>
+        ))
+      }
+      
       
 
       return (
