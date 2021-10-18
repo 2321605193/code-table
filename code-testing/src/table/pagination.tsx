@@ -7,9 +7,9 @@ export default defineComponent({
   setup() {
 
     let sizeList = reactive([10,25,50,100])
-    let { total, page, size, pageChange, sizeChange, } = inject('tableProvide')
-    let paginationSize = ref(size);
-    let paginationPage = ref(page);
+    let { total, getSize, getPage, pageChange, sizeChange, } = inject('tableProvide')
+    let paginationSize = ref(getSize.value);
+    let paginationPage = ref(getPage.value);
 
 
     let pageList = computed(() => {
@@ -27,20 +27,16 @@ export default defineComponent({
     }
 
     watch(paginationSize, (newValue) => {
+      if (pageList.value < paginationPage.value) {
+        paginationPage.value = 1
+      }
       sizeChange(newValue)
     })
 
     watch(paginationPage, (newValue) => {
-      
       pageChange(newValue)
     })
 
-    watch([() => pageList.value], () => {
-      console.log('new', pageList.value)
-      if (pageList.value < paginationPage) {
-        paginationPage.value = 1
-      }
-    })
 
 
 

@@ -34,6 +34,13 @@ export default defineComponent({
     })
 
 
+    let getPage = computed(()=>{
+      return page.value;
+    })
+
+    let getSize = computed(()=>{
+      return size.value;
+    })
 
 
 
@@ -59,8 +66,8 @@ export default defineComponent({
       pageChange,
       sizeChange,
       showHeader,
-      page,
-      size
+      getPage,
+      getSize
     })
 
     return () => {

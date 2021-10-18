@@ -2,14 +2,14 @@
 
 
 
-import { defineComponent, inject, reactive } from '@vue/composition-api'
+import { defineComponent, inject, reactive, ref } from '@vue/composition-api'
 import { TableData } from './types';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 export default defineComponent({
   name: 'TableBody',
   setup() {
-  const { filterTableData,  getTableColums, showIndex} = inject('tableProvide')
+  const { filterTableData,  getTableColums, showIndex, getPage, getSize} = inject('tableProvide')
     let columns: Record<string, any>[] = reactive(getTableColums.value);
 
     return () => {
@@ -23,11 +23,11 @@ export default defineComponent({
            )
         } )
 
-        
+   
 
         if (showIndex) {
           columnsList.unshift((
-            <TableCell> { rowIndex + 1 } </TableCell>
+            <TableCell> { (getPage.value - 1) * getSize.value + rowIndex + 1 } </TableCell>
           ))
         }
 
