@@ -11,6 +11,7 @@ export default defineComponent({
   props: tableProps,
   setup(props) {
 
+    
     let tableData: TableData = reactive(props.data)
     let columns = reactive(props.columns)
     const showHeader = ref(props.showHeader)
@@ -55,11 +56,32 @@ export default defineComponent({
       size.value = newSize;
     }
 
+    let sortRule: Function | null = ref(null);
+
+    let getSortRule = computed(() => {
+      return sortRule.value
+    })
+
+    let sortKey = ref('')
+
+    let changeSortRuleAndSortKey = (sort: Function, key: string) => {
+      sortRule.value = sort;
+      sortKey.value = key;
+    }
+
+    let getSortKey = computed(() => {
+      return sortKey.value
+    })
+
     provide('tableProvide', {
       showIndex,
       total,
       filterTableData: computed(() => {
-        return tableData.slice((page.value - 1 ) * size.value, page.value * size.value);
+        let templateData = tableData.slice();
+        if (getSortRule.value) {
+          return templateData.sort((curr, next)=> getSortRule.value(curr, next)).slice((page.value - 1 ) * size.value, page.value * size.value)
+        }
+        return templateData.slice((page.value - 1 ) * size.value, page.value * size.value);
       }),
       getTableData,
       getTableColums,
@@ -67,7 +89,9 @@ export default defineComponent({
       sizeChange,
       showHeader,
       getPage,
-      getSize
+      getSize,
+      changeSortRuleAndSortKey,
+      getSortKey
     })
 
     return () => {

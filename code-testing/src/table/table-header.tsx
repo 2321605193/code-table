@@ -11,11 +11,10 @@ import SortButton from './sort-button'
 
 export default defineComponent({
   name: 'TableHeader',
-  setup () {
+  setup (props, {slots}) {
 
     const { getTableColums, showHeader, showIndex }  = inject('tableProvide')
     return () => {
-
       let children: VNode | VNode[] | null = [];
       const columns: Record<string, any>[] = getTableColums.value
 
@@ -31,8 +30,12 @@ export default defineComponent({
 
           return (
             <HeaderCell>
-              <span class='fj-table-header__cell'>{column.title}</span>
-              <sortButton />
+              <slot name={column.key}>
+                <div class='fj-table__header-cell'>
+                  <span class='fj-table-header__cell-title'>{column.title}</span>
+                  <sortButton dataKey={column.key} sortable={column.sortable} />
+                </div>
+              </slot>
             </HeaderCell>
           )  
         })

@@ -2,10 +2,11 @@
 
 
 
-import { defineComponent, inject, reactive, ref } from '@vue/composition-api'
+import { defineComponent, inject, reactive, h } from '@vue/composition-api'
 import { TableData } from './types';
 import TableRow from './table-row';
 import TableCell from './table-cell';
+import { isFunction } from '@vue/shared';
 export default defineComponent({
   name: 'TableBody',
   setup() {
@@ -16,6 +17,13 @@ export default defineComponent({
       let rowList = filterTableData.value.map((row, rowIndex) => {
 
         let columnsList = columns.map((column, colIndex) => {
+         
+          if (column.render && isFunction(column.render)) {
+  
+            return (
+              <TableCell>{column.render(row)}</TableCell>
+            )
+          }
            return (
             <TableCell row = {colIndex + 1} col = {colIndex + 1} > 
               <span>{row[column.key]}</span> 

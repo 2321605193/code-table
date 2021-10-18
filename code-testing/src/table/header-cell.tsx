@@ -8,7 +8,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <th class='fj-table-header__cell common-padding'>{slots?.default?.()}</th>
+        <th class='fj-table__header common-padding'>{slots?.default?.()}</th>
       )
     }
   },

@@ -21,7 +21,7 @@ export default defineComponent({
 
       let key = `${props.row}-${props.col}`;
       return (
-        <td class='common-padding' key = {key}>{slots?.default?.()}</td>
+        <td class='fj-table__body-cell common-padding' key = {key}>{slots?.default?.()}</td>
       )
     }
   },

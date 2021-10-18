@@ -8,8 +8,7 @@ import TableBody from './table-body';
 
 export default defineComponent({
   name: 'Table',
-  setup() {
-
+  setup(props, {slots}) {
     return () => {
       return (
         <section class='fj-table-content'>
