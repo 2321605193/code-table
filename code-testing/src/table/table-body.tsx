@@ -6,7 +6,7 @@ import { defineComponent, inject, reactive, h } from '@vue/composition-api'
 import { TableData } from './types';
 import TableRow from './table-row';
 import TableCell from './table-cell';
-import { isFunction } from '@vue/shared';
+import { isFunction } from 'lodash-es';
 export default defineComponent({
   name: 'TableBody',
   setup() {

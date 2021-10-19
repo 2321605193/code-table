@@ -24,19 +24,19 @@ export default defineComponent({
       } else {
         children = columns.map((column: Record<string, any>) => {
 
-          let sortButton = null;
+          let sortButton = <template></template>;
           if (column.sortable) {
             sortButton = SortButton;
           }
 
           return (
             <HeaderCell>
-              <slot name={column.key}>
-                <div class='fj-table__header-cell'>
-                  <span class='fj-table-header__cell-title'>{column.title}</span>
-                  <sortButton dataKey={column.key} sortable={column.sortable} />
-                </div>
-              </slot>
+     
+              <div class='fj-table__header-cell'>
+                <span class='fj-table-header__cell-title'>{column.title}</span>
+                <sortButton dataKey={column.key} sortable={column.sortable} />
+              </div>
+           
             </HeaderCell>
           )  
         })

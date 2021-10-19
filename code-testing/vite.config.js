@@ -41,16 +41,16 @@ export default defineConfig({
     ],
   },
   // css: {
-  //     preprocessorOptions: {
-  //         less: {
-  //             modifyVars: {
-  //                 hack: `true;
+  //   preprocessorOptions: {
+  //     less: {
+  //       modifyVars: {
+  //         hack: `true;
   //                     @import '${path.resolve(__dirname, '../node_modules/@sxf/sf-theme/dist/brand40.less')}';
   //                 `,
-  //             },
-  //             javascriptEnabled: true,
-  //         },
+  //       },
+  //       javascriptEnabled: true,
   //     },
+  //   },
   // },
   logLevel: 'info',
 });

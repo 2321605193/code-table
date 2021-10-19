@@ -1,5 +1,5 @@
 <template>
-  <TestTable :data="getTableData" :columns="getTableColums" :showIndex="true">
+  <TestTable :data="getTableData" :columns="getTableColumns" :showHeader="true">
     <template #name="{value}">
       <span>{{ value }}</span>
     </template>
@@ -54,11 +54,11 @@ export default defineComponent({
       return tableData
     })
 
-    const getTableColums = computed(() => {
+    const getTableColumns = computed(() => {
       return tableColumns
     })
 
-    return { getTableData, getTableColums }
+    return { getTableData, getTableColumns }
   },
 })
 </script>

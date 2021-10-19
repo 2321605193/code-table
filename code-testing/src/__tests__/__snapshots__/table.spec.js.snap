@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table render 1`] = `
+"<section class=\\"fj-table\\">
+  <section class=\\"fj-table-content\\">
+    <table cellspacing=\\"0\\" cellpadding=\\"0\\" class=\\"fj-table-body\\">
+      <thead>
+        <tr class=\\"fj-table__row\\"></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section><br>
+  <section class=\\"pagination-content\\">
+    <div><span> 共0条 </span></div>
+    <div><span>第</span><select name=\\"pageSelect\\" id=\\"page\\"></select><span>页</span></div>
+    <div><span>每页</span><select name=\\"sizeSelect\\" id=\\"size\\">
+        <option value=\\"10\\">10</option>
+        <option value=\\"25\\">25</option>
+        <option value=\\"50\\">50</option>
+        <option value=\\"100\\">100</option>
+      </select><span>条</span></div>
+  </section>
+</section>"
+`;

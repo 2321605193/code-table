@@ -1,12 +1,13 @@
 
 import { computed, defineComponent, inject, ref, watch } from '@vue/composition-api'
-import { isFunction } from '@vue/shared';
+import { isFunction } from 'lodash-es';
 import ArrowDown from './arrow-down';
 
 
 let defaultOrder = ['desc', 'asc', 'default'];
 let defaultOrderBy = 'default'
 export default defineComponent({
+  name: 'SortButton',
   props: {
     sortable: {
       type: Object

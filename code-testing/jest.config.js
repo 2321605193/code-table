@@ -3,9 +3,12 @@ module.exports = {
   // for example, ['<rootDir>/packages/components/button']
   roots: ['<rootDir>/src/'],
   setupFiles: ['<rootDir>/jest.setup.js'],
-
+  'transformIgnorePatterns': [
+    '<rootDir>/node_modules/(?!lodash-es)',
+  ],
   testEnvironment: 'jsdom',
   transform: {
+    '.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
     '^.+\\.vue$': 'vue-jest',
     '^.+\\.(t|j)sx?$': [
       'babel-jest',
