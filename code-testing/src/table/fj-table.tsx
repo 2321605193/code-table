@@ -20,9 +20,11 @@ export default defineComponent({
 
     let page = ref(1)
     let size = ref(10)
+    let sortRule: Function | null = ref(null);
+    let sortKey = ref('')
 
     // 获取table总数据
-    let getTableColums = computed(() => {
+    let getTableColumns = computed(() => {
       return columns
     })
 
@@ -39,6 +41,14 @@ export default defineComponent({
       return size.value;
     })
 
+    let getSortRule = computed(() => {
+      return sortRule.value
+    })
+
+    let getSortKey = computed(() => {
+      return sortKey.value
+    })
+
 
 
     // 分页、排序后的结果
@@ -52,22 +62,13 @@ export default defineComponent({
       size.value = newSize;
     }
 
-    let sortRule: Function | null = ref(null);
-
-    let getSortRule = computed(() => {
-      return sortRule.value
-    })
-
-    let sortKey = ref('')
 
     let changeSortRuleAndSortKey = (sort: Function, key: string) => {
       sortRule.value = sort;
       sortKey.value = key;
     }
 
-    let getSortKey = computed(() => {
-      return sortKey.value
-    })
+  
 
     provide('tableProvide', {
       showIndex,
@@ -83,7 +84,7 @@ export default defineComponent({
         return templateData
         
       }),
-      getTableColums,
+      getTableColumns,
       pageChange,
       sizeChange,
       showHeader,

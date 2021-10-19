@@ -10,8 +10,8 @@ import { isFunction } from '@vue/shared';
 export default defineComponent({
   name: 'TableBody',
   setup() {
-  const { filterTableData,  getTableColums, showIndex, getPage, getSize} = inject('tableProvide')
-    let columns: Record<string, any>[] = reactive(getTableColums.value);
+  const { filterTableData,  getTableColumns, showIndex, getPage, getSize} = inject('tableProvide')
+    let columns: Record<string, any>[] = reactive(getTableColumns.value);
 
     return () => {
       let rowList = filterTableData.value.map((row, rowIndex) => {

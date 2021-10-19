@@ -3,6 +3,6 @@
  */
 
 import TestTable from './fj-table'
-import './table.css'
+import './css/table.css'
 
 export { TestTable }

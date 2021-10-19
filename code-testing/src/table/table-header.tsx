@@ -13,10 +13,11 @@ export default defineComponent({
   name: 'TableHeader',
   setup (props, {slots}) {
 
-    const { getTableColums, showHeader, showIndex }  = inject('tableProvide')
+    const { getTableColumns, showHeader, showIndex }  = inject('tableProvide')
+
     return () => {
       let children: VNode | VNode[] | null = [];
-      const columns: Record<string, any>[] = getTableColums.value
+      const columns: Record<string, any>[] = getTableColumns.value
 
       if (!showHeader.value) {
         children = null
