@@ -48,7 +48,7 @@ export default defineComponent({
 
       
       return (
-          <span onClick={sortData} class={[`sort-button sort-button__icon--${activeOrderBy.value}`]}>
+          <span onClick={changeSortRuleAndSortKey(sortable, key)} class={[`sort-button sort-button__icon--${activeOrderBy.value}`]}>
             <i><ArrowDown /></i>
           </span>
       )

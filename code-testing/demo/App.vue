@@ -1,7 +1,10 @@
 <template>
-  <TestTable :data="getTableData" :columns="getTableColums" :showIndex="true">
+  <TestTable :data="getTableData"
+             :columns="getTableColums"
+             :showHeader="true"
+  >
     <template #name="{value}">
-      <span>{{ value }}</span>
+      <span>{{ '自定义表头' + value }}</span>
     </template>
   </TestTable>
 </template>
@@ -19,6 +22,10 @@ const data = Array.from({ length: 100 }, (value, index) => {
 })
 
 const columns = [{
+  type: 'selectable',
+}, {
+  type: 'index',
+},{
   title: '姓名',
   key: 'name',
 }, {
@@ -26,7 +33,7 @@ const columns = [{
   key: 'age',
   sortable: {
     orderBy: ['desc', 'asc'],
-    sorter: (curr, next) => curr.age - next.age
+    sorter: (curr, next) => curr.age - next.age,
   },
 }, {
   title: '爱好',
@@ -36,8 +43,8 @@ const columns = [{
   },
   sortable: {
     orderBy: ['desc', 'asc', 'default'],
-    sorter: (curr, next) => curr.love.length - next.love.length
-  }
+    sorter: (curr, next) => curr.love.length - next.love.length,
+  },
 }]
 
 
