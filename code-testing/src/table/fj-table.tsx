@@ -1,6 +1,6 @@
 
-import { defineComponent, reactive, ref, provide, computed } from '@vue/composition-api'
-import { tableProps } from './types'
+import { defineComponent, reactive, ref, provide, computed, toRefs } from '@vue/composition-api'
+import { tableProps, PaginationOptions } from './types'
 import Table from './table';
 import Pagination from './pagination';
 
@@ -17,10 +17,10 @@ export default defineComponent({
     const showHeader = ref(props.showHeader)
     let showPagination = ref(props.showPagination)
 
-    let page = ref(1)
-    let size = ref(10)
-    let sortRule = ref(null);
-    let sortKey = ref('')
+
+    let { paginationOptionsChange, paginationOptions } =  usePagination();
+
+
 
     // 获取table总数据
     let getTableColumns = computed(() => {
@@ -31,44 +31,6 @@ export default defineComponent({
       return tableData.length;
     })
 
-
-    let getPage = computed(()=>{
-      return page.value;
-    })
-
-    let getSize = computed(()=>{
-      return size.value;
-    })
-
-    let getSortRule = computed(() => {
-      return sortRule.value
-    })
-
-    let getSortKey = computed(() => {
-      return sortKey.value
-    })
-
-
-
-    // 分页、排序后的结果
-    // 页码改变
-    const pageChange = (newPage: number) => {
-      page.value = newPage;
-    }
-
-    // 页码改变
-    const sizeChange = (newSize: number) => {
-      size.value = newSize;
-    }
-
-
-    let changeSortRuleAndSortKey = (sort: Function, key: string) => {
-      sortRule.value = sort;
-      sortKey.value = key;
-    }
-
-  
-
     provide('tableProvide', {
       total,
       filterTableData: computed(() => {
@@ -77,17 +39,15 @@ export default defineComponent({
           templateData.sort((curr, next)=> getSortRule.value(curr, next))
         }
         if (showPagination.value) {
-          return templateData.slice((page.value - 1 ) * size.value, page.value * size.value);
+          return templateData.slice((paginationOptions.value.page - 1 ) * paginationOptions.value.size, paginationOptions.value.page * paginationOptions.value.size);
         }
         return templateData
         
       }),
       getTableColumns,
-      pageChange,
-      sizeChange,
       showHeader,
-      getPage,
-      getSize,
+      paginationOptionsChange,
+      paginationOptions,
       changeSortRuleAndSortKey,
       getSortKey
     })
@@ -105,6 +65,27 @@ export default defineComponent({
     }
   },
 })
+
+
+// 分页器相关
+function usePagination () {
+  
+  let paginationOptions = ref({
+    page: 1,
+    size: 10
+  });
+
+  const paginationOptionsChange = (newPaginationOptions: PaginationOptions) => {
+    paginationOptions.value = reactive(newPaginationOptions);
+  }
+
+  return {
+    paginationOptions,
+    paginationOptionsChange
+  }
+
+}
+
 
 
 

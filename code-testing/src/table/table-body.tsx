@@ -10,7 +10,7 @@ import { isFunction } from 'lodash-es';
 export default defineComponent({
   name: 'TableBody',
   setup() {
-  const { filterTableData,  getTableColumns, showIndex, getPage, getSize} = inject('tableProvide')
+  const { filterTableData,  getTableColumns} = inject('tableProvide')
     let columns: Record<string, any>[] = reactive(getTableColumns.value);
 
     return () => {
@@ -19,7 +19,7 @@ export default defineComponent({
         let columnsList = columns.map((column, colIndex) => {
 
           if (column?.type === 'index') {
-            return (<TableCell> { (getPage.value - 1) * getSize.value + rowIndex + 1 } </TableCell>)
+            // return (<TableCell> { (getPage.value - 1) * getSize.value + rowIndex + 1 } </TableCell>)
           }
          
           if (column.render && isFunction(column.render)) {

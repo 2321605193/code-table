@@ -53,4 +53,10 @@ export type TablePublicProps = IxPublicPropTypes<typeof tableProps>
 
 export type TableData = Record<string, any>[];
 
+export type PaginationOptions = {
+  page: number
+  size: number
+}
+
+
 

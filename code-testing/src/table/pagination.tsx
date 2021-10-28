@@ -7,13 +7,13 @@ export default defineComponent({
   setup() {
 
     let sizeList = reactive([10,25,50,100])
-    let { total, getSize, getPage, pageChange, sizeChange, } = inject('tableProvide')
-    let paginationSize = ref(getSize.value);
-    let paginationPage = ref(getPage.value);
+    let { total, paginationOptionsChange, paginationOptions } = inject('tableProvide')
+    let paginationSize = ref(paginationOptions.value.size);
+    let paginationPage = ref(paginationOptions.value.page);
 
 
     let pageList = computed(() => {
-      return Math.ceil(total.value / paginationSize.value)
+      return Math.ceil(total.value / paginationOptions.value.size)
     })
 
     let paginationSizeChange = (e: Event) => {
@@ -30,11 +30,17 @@ export default defineComponent({
       if (pageList.value < paginationPage.value) {
         paginationPage.value = 1
       }
-      sizeChange(newValue)
+      paginationOptionsChange({
+        size: paginationSize.value,
+        page: paginationPage.value
+      })
     })
 
     watch(paginationPage, (newValue) => {
-      pageChange(newValue)
+      paginationOptionsChange({
+        size: paginationSize.value,
+        page: paginationPage.value
+      })
     })
 
 
