@@ -24,7 +24,15 @@ export default defineComponent({
       } else {
         children = columns.map((column: Record<string, any>) => {
 
-          let sortButton = <template></template>;
+          if (column?.type === 'index') {
+            return (
+              <HeaderCell>
+                <span class='fj-table-header__cell'>序号</span>
+              </HeaderCell>
+            )
+          }
+
+          let sortButton = null;
           if (column.sortable) {
             sortButton = SortButton;
           }
@@ -42,13 +50,7 @@ export default defineComponent({
         })
       }
 
-      if (showIndex.value) {
-        children?.unshift((
-          <HeaderCell>
-            <span class='fj-table-header__cell'>序号</span>
-          </HeaderCell>
-        ))
-      }
+      
       
       
 

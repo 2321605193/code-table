@@ -1,6 +1,6 @@
 
 import { defineComponent, reactive, ref, provide, computed } from '@vue/composition-api'
-import { TableData, tableProps } from './types'
+import { tableProps } from './types'
 import Table from './table';
 import Pagination from './pagination';
 
@@ -12,15 +12,14 @@ export default defineComponent({
   setup(props) {
 
     
-    let tableData: TableData = reactive(props.data)
+    let tableData = reactive(props.data)
     let columns = reactive(props.columns)
     const showHeader = ref(props.showHeader)
-    const showIndex = ref(props.showIndex)
     let showPagination = ref(props.showPagination)
 
     let page = ref(1)
     let size = ref(10)
-    let sortRule: Function | null = ref(null);
+    let sortRule = ref(null);
     let sortKey = ref('')
 
     // 获取table总数据
@@ -71,7 +70,6 @@ export default defineComponent({
   
 
     provide('tableProvide', {
-      showIndex,
       total,
       filterTableData: computed(() => {
         let templateData = tableData.slice();

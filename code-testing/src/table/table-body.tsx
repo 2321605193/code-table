@@ -17,6 +17,10 @@ export default defineComponent({
       let rowList = filterTableData.value.map((row, rowIndex) => {
 
         let columnsList = columns.map((column, colIndex) => {
+
+          if (column?.type === 'index') {
+            return (<TableCell> { (getPage.value - 1) * getSize.value + rowIndex + 1 } </TableCell>)
+          }
          
           if (column.render && isFunction(column.render)) {
   
@@ -33,11 +37,7 @@ export default defineComponent({
 
    
 
-        if (showIndex.value) {
-          columnsList.unshift((
-            <TableCell> { (getPage.value - 1) * getSize.value + rowIndex + 1 } </TableCell>
-          ))
-        }
+    
 
         return (
           <TableRow row = {rowIndex + 1}> {columnsList} </TableRow>

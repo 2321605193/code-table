@@ -1325,6 +1325,18 @@
   resolved "https://registry.nlark.com/@types/less/download/@types/less-3.0.3.tgz#f9451dbb9548d25391107d65d6401a0cfb15db92"
   integrity sha1-+UUdu5VI0lOREH1l1kAaDPsV25I=
 
+"@types/lodash-es@^4.17.5":
+  version "4.17.5"
+  resolved "https://registry.yarnpkg.com/@types/lodash-es/-/lodash-es-4.17.5.tgz#1c3fdd16849d84aea43890b1c60da379fb501353"
+  integrity sha512-SHBoI8/0aoMQWAgUHMQ599VM6ZiSKg8sh/0cFqqlQQMyY9uEplc0ULU5yQNzcvdR4ZKa0ey8+vFmahuRbOCT1A==
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  version "4.14.176"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.176.tgz#641150fc1cda36fbfa329de603bbb175d7ee20c0"
+  integrity sha512-xZmuPTa3rlZoIbtDUyJKZQimJV3bxCmzMIO2c9Pz9afyDro6kr7R79GwcB6mRhuoPmV2p1Vb66WOJH7F886WKQ==
+
 "@types/node@*":
   version "16.11.0"
   resolved "https://registry.npmmirror.com/@types/node/download/@types/node-16.11.0.tgz#4b95f2327bacd1ef8f08d8ceda193039c5d7f52e"
@@ -4193,6 +4205,11 @@ jest-snapshot@^27.2.5:
     natural-compare "^1.4.0"
     pretty-format "^27.2.5"
     semver "^7.3.2"
+
+jest-transform-stub@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/jest-transform-stub/-/jest-transform-stub-2.0.0.tgz#19018b0851f7568972147a5d60074b55f0225a7d"
+  integrity sha512-lspHaCRx/mBbnm3h4uMMS3R5aZzMwyNpNIJLXj4cEsV0mIUtS4IjYJLSoyjRCtnxb6RIGJ4NL2quZzfIeNhbkg==
 
 jest-util@^27.2.5:
   version "27.2.5"

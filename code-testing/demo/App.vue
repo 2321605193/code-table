@@ -1,6 +1,6 @@
 <template>
   <TestTable :data="getTableData"
-             :columns="getTableColums"
+             :columns="getTableColumns"
              :showHeader="true"
   >
     <template #name="{value}">
@@ -22,8 +22,8 @@ const data = Array.from({ length: 100 }, (value, index) => {
 })
 
 const columns = [{
-  type: 'selectable',
-}, {
+//   type: 'selectable',
+// }, {
   type: 'index',
 },{
   title: '姓名',
