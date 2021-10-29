@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type { PropOptions, PropType } from 'vue-types/dist/types'
@@ -78,6 +79,18 @@ export type SortAble = {
   sorter?: Function
 }
 
+export enum ColumnsType {
+  index = 'index'
+}
+
+export type Columns = {
+  type?: ColumnsType
+  title: string
+  key: string
+  render?: Function
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  sortable?: Function | null
+}
 
 
 
