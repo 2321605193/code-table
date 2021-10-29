@@ -1,6 +1,7 @@
 
-import { defineComponent, reactive, ref, provide, computed, toRefs } from '@vue/composition-api'
-import { tableProps, PaginationOptions } from './types'
+import { defineComponent, reactive, ref, provide, computed, Ref } from '@vue/composition-api'
+import { isFunction } from 'lodash-es';
+import { tableProps, PaginationOptions, SortOptions, SortOrderBy, SortAble } from './types'
 import Table from './table';
 import Pagination from './pagination';
 
@@ -19,6 +20,7 @@ export default defineComponent({
 
 
     let { paginationOptionsChange, paginationOptions } =  usePagination();
+    let { sortOptions, setSortOptions } = useSort();
 
 
 
@@ -35,8 +37,8 @@ export default defineComponent({
       total,
       filterTableData: computed(() => {
         let templateData = tableData.slice();
-        if (getSortRule.value) {
-          templateData.sort((curr, next)=> getSortRule.value(curr, next))
+        if (sortOptions.value.sortRule) {
+          templateData.sort((curr, next)=> sortOptions.value.sortRule?.(curr, next))
         }
         if (showPagination.value) {
           return templateData.slice((paginationOptions.value.page - 1 ) * paginationOptions.value.size, paginationOptions.value.page * paginationOptions.value.size);
@@ -48,8 +50,8 @@ export default defineComponent({
       showHeader,
       paginationOptionsChange,
       paginationOptions,
-      changeSortRuleAndSortKey,
-      getSortKey
+      setSortOptions,
+      sortOptions
     })
 
     return () => {
@@ -76,7 +78,7 @@ function usePagination () {
   });
 
   const paginationOptionsChange = (newPaginationOptions: PaginationOptions) => {
-    paginationOptions.value = reactive(newPaginationOptions);
+    paginationOptions.value = newPaginationOptions;
   }
 
   return {
@@ -86,6 +88,48 @@ function usePagination () {
 
 }
 
+// 排序相关
+function useSort() {
+
+  let defaultOrder = [SortOrderBy.desc, SortOrderBy.asc, SortOrderBy.default];
+  
+
+  let sortOptions: Ref<SortOptions> = ref({
+    sortRule: (curr: number, next: number) => curr - next,
+    sortKey: '',
+    activeOrderBy: SortOrderBy.default
+  })
+
+  let oderFlag = computed(() => {
+    return sortOptions.value.activeOrderBy === SortOrderBy.desc ? -1 : 1
+  })
+
+  
+
+  let setSortOptions = (sortable: SortAble | Boolean, key: string) => {
+
+    let deafultSort = (curr: Record<string, any>, next: Record<string, any>) => curr[key] - next[key];
+    
+    // 有自定义排序规则使用自定义，否则使用默认值
+    let sortFunction = (sortable.sorter && isFunction(sortable.sorter)) ? sortable.sorter : deafultSort
+
+    // 排序方式
+    let order = sortable?.orderBy ? sortable.orderBy : defaultOrder
+    //下一个排序规则
+    let nextOrderBy = order.indexOf(sortOptions.value.activeOrderBy) === -1 ? SortOrderBy.desc : order[order.indexOf(sortOptions.value.activeOrderBy) + 1]
+    
+    sortOptions.value.activeOrderBy =  key === sortOptions.value.sortKey  && nextOrderBy ? nextOrderBy : SortOrderBy.desc
+    sortOptions.value.sortRule = sortOptions.value.activeOrderBy === SortOrderBy.default ? null : (curr: Record<string, any>, next: Record<string, any>) => oderFlag.value * sortFunction(curr, next);
+    sortOptions.value.sortKey = key;
+
+  }
+
+  return {
+    sortOptions,
+    setSortOptions
+  }
+
+}
 
 
 

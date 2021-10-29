@@ -31,10 +31,7 @@ const columns = [{
 }, {
   title: '年龄',
   key: 'age',
-  sortable: {
-    orderBy: ['desc', 'asc'],
-    sorter: (curr, next) => curr.age - next.age,
-  },
+  sortable: true,
 }, {
   title: '爱好',
   key: 'love',
@@ -42,7 +39,7 @@ const columns = [{
     return h('span', {}, 'love: ' + rowData.love)
   },
   sortable: {
-    orderBy: ['desc', 'asc', 'default'],
+    orderBy: ['desc', 'asc'],
     sorter: (curr, next) => curr.love.length - next.love.length,
   },
 }]

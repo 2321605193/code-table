@@ -58,5 +58,27 @@ export type PaginationOptions = {
   size: number
 }
 
+export enum SortOrderBy {
+  default = 'default',
+  desc = 'desc',
+  asc = 'asc'
+}
+
+
+export type SortOptions = {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  sortRule: Function | null
+  sortKey: string
+  activeOrderBy: SortOrderBy
+}
+
+export type SortAble = {
+  orderBy?: SortOrderBy[]
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  sorter?: Function
+}
+
+
+
 
 

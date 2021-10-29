@@ -5,9 +5,9 @@
 
 import { defineComponent, inject } from '@vue/composition-api'
 import {VNode} from 'vue';
-import TableRow from './table-row';
+import TableRow from '../body/table-row';
 import HeaderCell from './header-cell';
-import SortButton from './sort-button'
+import SortButton from '../sort-button'
 
 export default defineComponent({
   name: 'TableHeader',
