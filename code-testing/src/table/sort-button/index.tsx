@@ -10,7 +10,7 @@ export default defineComponent({
   name: 'SortButton',
   props: {
     sortable: {
-      type: Object
+      type: [Object, Boolean]
     },
     dataKey: {
       type: String,

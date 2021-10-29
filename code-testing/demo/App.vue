@@ -1,7 +1,8 @@
 <template>
   <TestTable :data="getTableData"
              :columns="getTableColumns"
-             :showHeader="true"
+             :headerLess="false"
+             :paginationLess="false"
   >
     <template #name="{value}">
       <span>{{ '自定义表头' + value }}</span>
@@ -17,7 +18,7 @@ const data = Array.from({ length: 100 }, (value, index) => {
   return {
     name: 'junjun' + index,
     age: 20 + index,
-    love: Math.random().toString().substr(2, index / Math.floor(Math.random()*10)),
+    love: Math.random().toString().substr(2, index / Math.floor(Math.random() * 10)),
   }
 })
 

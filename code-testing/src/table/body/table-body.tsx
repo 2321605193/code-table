@@ -3,15 +3,14 @@
 
 
 import { defineComponent, inject, reactive, h } from '@vue/composition-api'
-import { TableData } from './types';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import { isFunction } from 'lodash-es';
 export default defineComponent({
   name: 'TableBody',
   setup() {
-  const { filterTableData,  getTableColumns} = inject('tableProvide')
-    let columns: Record<string, any>[] = reactive(getTableColumns.value);
+  const { filterTableData,  tableColumns, paginationOptions} = inject('tableProvide')
+    let columns: Record<string, any>[] = reactive(tableColumns);
 
     return () => {
       let rowList = filterTableData.value.map((row, rowIndex) => {
@@ -19,7 +18,7 @@ export default defineComponent({
         let columnsList = columns.map((column, colIndex) => {
 
           if (column?.type === 'index') {
-            // return (<TableCell> { (getPage.value - 1) * getSize.value + rowIndex + 1 } </TableCell>)
+            return (<TableCell> { (paginationOptions.value.page - 1) * paginationOptions.value.size + rowIndex + 1 } </TableCell>)
           }
          
           if (column.render && isFunction(column.render)) {

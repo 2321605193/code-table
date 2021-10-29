@@ -14,9 +14,16 @@ export default defineComponent({
 
     
     let tableData = reactive(props.data)
-    let columns = reactive(props.columns)
-    const showHeader = ref(props.showHeader)
-    let showPagination = ref(props.showPagination)
+    let tableColumns = reactive(props.columns)
+    const headerLess = ref(props.headerLess)
+    const paginationLess = ref(props.paginationLess)
+   
+
+
+    let total = computed(()=> {
+      return tableData.length;
+    })
+
 
 
     let { paginationOptionsChange, paginationOptions } =  usePagination();
@@ -24,14 +31,7 @@ export default defineComponent({
 
 
 
-    // 获取table总数据
-    let getTableColumns = computed(() => {
-      return columns
-    })
 
-    let total = computed(()=> {
-      return tableData.length;
-    })
 
     provide('tableProvide', {
       total,
@@ -40,14 +40,14 @@ export default defineComponent({
         if (sortOptions.value.sortRule) {
           templateData.sort((curr, next)=> sortOptions.value.sortRule?.(curr, next))
         }
-        if (showPagination.value) {
+        if (!paginationLess.value) {
           return templateData.slice((paginationOptions.value.page - 1 ) * paginationOptions.value.size, paginationOptions.value.page * paginationOptions.value.size);
         }
         return templateData
         
       }),
-      getTableColumns,
-      showHeader,
+      tableColumns,
+      headerLess,
       paginationOptionsChange,
       paginationOptions,
       setSortOptions,
@@ -55,7 +55,7 @@ export default defineComponent({
     })
 
     return () => {
-      let pagination = showPagination.value ? Pagination : null;
+      let pagination = !paginationLess.value ? Pagination : null;
 
       return (
         <section class='fj-table'>

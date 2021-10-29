@@ -13,16 +13,16 @@ export default defineComponent({
   name: 'TableHeader',
   setup (props, {slots}) {
 
-    const { getTableColumns, showHeader, showIndex }  = inject('tableProvide')
+    const { tableColumns, headerLess }  = inject('tableProvide')
 
     return () => {
       let children: VNode | VNode[] | null = [];
-      const columns: Record<string, any>[] = getTableColumns.value
+      const columnsList: Record<string, any>[] = tableColumns
 
-      if (!showHeader.value) {
+      if (headerLess.value) {
         children = null
       } else {
-        children = columns.map((column: Record<string, any>) => {
+        children = columnsList.map((column: Record<string, any>) => {
 
           if (column?.type === 'index') {
             return (

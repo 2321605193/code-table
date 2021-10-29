@@ -37,14 +37,14 @@ export const tableProps = {
     type: Array,
     default: (): Record<string, any>[] => ([]),
   },
-  showPagination: {
+  paginationLess: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 
-  showHeader: {
+  headerLess: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 }
 

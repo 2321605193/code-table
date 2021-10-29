@@ -3,8 +3,8 @@
 
 import { defineComponent } from '@vue/composition-api'
 
-import TableHeader from './header/table-header';
-import TableBody from './body/table-body';
+import TableHeader from './header/table-header'
+import TableBody from './body/table-body'
 
 export default defineComponent({
   name: 'Table',

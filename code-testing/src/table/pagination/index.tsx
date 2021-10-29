@@ -13,7 +13,7 @@ export default defineComponent({
 
 
     let pageList = computed(() => {
-      return Math.ceil(total.value / paginationOptions.value.size)
+      return Math.ceil(total.value / paginationSize.value)
     })
 
     let paginationSizeChange = (e: Event) => {
@@ -27,6 +27,7 @@ export default defineComponent({
     }
 
     watch(paginationSize, (newValue) => {
+
       if (pageList.value < paginationPage.value) {
         paginationPage.value = 1
       }
