@@ -4,8 +4,8 @@
              :headerLess="false"
              :paginationLess="false"
   >
-    <template #name="{value}">
-      <span>{{ '自定义表头' + value }}</span>
+    <template #name >
+      <span>{{ '自定义表头'}}</span>
     </template>
   </TestTable>
 </template>

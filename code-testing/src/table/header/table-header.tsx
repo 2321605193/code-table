@@ -14,14 +14,14 @@ export default defineComponent({
   name: 'TableHeader',
   setup () {
 
-    const { tableColumns, headerLess }  = inject('tableProvide')
+    const { tableColumns, headerLess, headerSlot }  = inject('tableProvide')
 
     return () => {
       let children: VNode | VNode[] | null = [];
       if (headerLess.value) {
         children = null
       } else {
-        children = randerHeader(tableColumns)
+        children = randerHeader(tableColumns, headerSlot)
       }
 
       return (
@@ -34,7 +34,7 @@ export default defineComponent({
 })
 
 
-function randerHeader (columnsList: Columns[]) {
+function randerHeader (columnsList: Columns[], headerSlot: Record<string, any>) {
   return columnsList.map((column: Record<string, any>) => {
 
     if (column?.type === ColumnsType.index) {
@@ -43,6 +43,10 @@ function randerHeader (columnsList: Columns[]) {
           <span class='fj-table-header__cell'>序号</span>
         </HeaderCell>
       )
+    }
+
+    if (headerSlot[column.key]) {
+      return headerSlot[column.key]()
     }
 
     let sortButton = null;

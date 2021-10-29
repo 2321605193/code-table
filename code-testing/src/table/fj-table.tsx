@@ -10,13 +10,15 @@ import Pagination from './pagination';
 export default defineComponent({
   name: 'fjTable',
   props: tableProps,
-  setup(props) {
+  setup(props, {slots}) {
 
-    
+
+    let headerSlot = reactive(slots)
     let tableData = reactive(props.data)
     let tableColumns = reactive(props.columns)
     const headerLess = ref(props.headerLess)
     const paginationLess = ref(props.paginationLess)
+
    
 
 
@@ -24,17 +26,12 @@ export default defineComponent({
       return tableData.length;
     })
 
-
-
     let { paginationOptionsChange, paginationOptions } =  usePagination();
     let { sortOptions, setSortOptions } = useSort();
 
-
-
-
-
     provide('tableProvide', {
       total,
+      headerSlot,
       filterTableData: computed(() => {
         let templateData = tableData.slice();
         if (sortOptions.value.sortRule) {
