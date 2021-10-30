@@ -14,13 +14,13 @@ export default defineComponent({
   name: 'TableHeader',
   setup () {
 
-    const { tableColumns, headerLess, headerSlot }  = inject('tableProvide')
+    const { tableColumns, headerSlot }  = inject('tableProvide')
 
     return () => {
       let headerDOM = randerHeader(tableColumns, headerSlot);
       return (
         <thead>
-          <TableRow>{!headerLess.value && headerDOM}</TableRow>
+          <TableRow>{headerDOM}</TableRow>
         </thead>
       )
     }

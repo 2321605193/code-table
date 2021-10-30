@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="4" failures="0" errors="0" time="4.945">
-  <testsuite name="Table" errors="0" failures="0" skipped="0" timestamp="2021-10-19T09:49:37" time="3.373" tests="4">
-    <testcase classname="Table render" name="Table render" time="0.041">
+<testsuites name="jest tests" tests="4" failures="0" errors="0" time="5.508">
+  <testsuite name="Table" errors="0" failures="0" skipped="0" timestamp="2021-10-30T09:32:17" time="3.543" tests="4">
+    <testcase classname="Table render" name="Table render" time="0.045">
     </testcase>
-    <testcase classname="Table props showPagination test" name="Table props showPagination test" time="0.027">
+    <testcase classname="Table props paginationLess test" name="Table props paginationLess test" time="0.015">
     </testcase>
-    <testcase classname="Table props showHeader test" name="Table props showHeader test" time="0.012">
+    <testcase classname="Table props headerLess test" name="Table props headerLess test" time="0.011">
     </testcase>
-    <testcase classname="Table props columns test" name="Table props columns test" time="0.104">
+    <testcase classname="Table props columns test" name="Table props columns test" time="0.056">
     </testcase>
   </testsuite>
 </testsuites>

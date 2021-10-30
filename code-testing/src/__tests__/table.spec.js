@@ -1,5 +1,6 @@
 import { h, mount } from '@vue/test-utils'
 import { TestTable } from '../table'
+import SortButton from '../table/sort-button'
 
 describe('Table', () => {
   const TableMount = options => mount(TestTable, options)
@@ -13,46 +14,49 @@ describe('Table', () => {
     }).not.toThrow()
   })
 
-  test('props showPagination test', () => {
+  test('props paginationLess test', () => {
     const wrapper = TableMount({
       propsData: {
-        showPagination: true,
+        paginationLess: true,
       },
     })
-    expect(wrapper.find('.pagination-content').exists()).toBe(true)
+    expect(wrapper.find('.pagination-content').exists()).toBe(false)
   })
 
-  test('props showHeader test', () => {
+  test('props headerLess test', () => {
     const wrapper = TableMount({
       propsData: {
-        showHeader: false,
+        headerLess: false,
       },
     })
-    expect(wrapper.find('.fj-table__header').exists()).toBe(false)
+    expect(wrapper.find('.fj-table-body thead').exists()).toBe(true)
   })
 
 
-  test('props columns test', () => {
+  test('props columns test', async () => {
     const columns = [{
+      type: 'index',
+    },{
       title: '姓名',
       key: 'name',
+      sortable: true,
     }, {
-      title: '年龄',
+      title: '',
       key: 'age',
       sortable: {
         orderBy: ['desc', 'asc'],
-        sorter: (curr, next) => curr.age - next.age
+        sorter: (curr, next) => curr.age - next.age,
       },
     }, {
       title: '爱好',
       key: 'love',
-      render: (rowData) => {
+      render: rowData => {
         return 'love: ' + rowData.love
       },
       sortable: {
         orderBy: ['desc', 'asc', 'default'],
-        sorter: (curr, next) => curr.love.length - next.love.length
-      }
+        sorter: (curr, next) => curr.love.length - next.love.length,
+      },
     }]
     const data = Array.from({ length: 100 }, (value, index) => {
       return {
@@ -65,13 +69,21 @@ describe('Table', () => {
       propsData: {
         data: data,
         columns: columns,
-        showHeader: true,
-        showIndex: true,
-        showPagination: true
+      },
+      slots: {
+        name: '自定义表头',
       },
     })
 
     expect(wrapper.find('.sort-button').exists()).toBe(true)
+
+
+    // const sortButton = wrapper.findComponent(SortButton)
+    // await sortButton.trigger('click')
+
+
+
+
   })
 
 })
