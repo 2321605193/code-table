@@ -5,15 +5,16 @@
 import { defineComponent, inject, reactive, h } from '@vue/composition-api'
 import TableRow from './table-row';
 import TableCell from './table-cell';
-import { Columns, PaginationOptions, ColumnsType } from '../types';
+import { Columns, PaginationOptions, ColumnsType, TableData } from '../types';
 import { isFunction } from 'lodash-es';
+import { VNode } from 'vue';
 export default defineComponent({
   name: 'TableBody',
   setup() {
   const { filterTableData,  tableColumns, paginationOptions} = inject('tableProvide')
 
     return () => {
-      let rowList = randerColumns(filterTableData.value, tableColumns, paginationOptions.value)
+      let rowList = randerColumnsList(filterTableData.value, tableColumns, paginationOptions.value)
       return (
         <tbody>{rowList}</tbody>
       )
@@ -22,30 +23,40 @@ export default defineComponent({
 })
 
 
-function randerColumns(TableData: Record<string, any>[], columns: Columns[], paginationOptions: PaginationOptions) {
+function randerColumnsList(TableData: TableData[], columns: Columns[], paginationOptions: PaginationOptions) {
   return TableData.map((row, rowIndex) => {
 
-    let columnsList = columns.map((column, colIndex) => {
-
-      // 序号
-      if (column?.type === ColumnsType.index) {
-        return (<TableCell> { (paginationOptions.page - 1) * paginationOptions.size + rowIndex + 1 } </TableCell>)
-      }
-     
-      // 自定义列渲染
-      if (column.render && isFunction(column.render)) {
-        return (<TableCell>{column.render(row)}</TableCell>)
-      }
-
-       return (
-        <TableCell row = {colIndex + 1} col = {colIndex + 1} > 
-          <span>{row[column.key]}</span> 
-        </TableCell>
-       )
-    } )
+    let columnsList = randerColumns(row, columns, paginationOptions, rowIndex);
 
     return (
       <TableRow row = {rowIndex + 1}> {columnsList} </TableRow>
     )
   })
+}
+
+function randerColumns (rowData: Record<string, any>, columns: Columns[], paginationOptions: PaginationOptions, rowIndex: number) { 
+  return columns.map((column) => {
+
+    // 序号
+    if (column?.type === ColumnsType.index) {
+      return randerIndex(paginationOptions, rowIndex)
+    }
+   
+    // 自定义列渲染
+    if (column.render && isFunction(column.render)) {
+      return randerTableCell(column.render(rowData))
+    }
+    return randerTableCell(rowData[column.key])
+     
+  } )
+}
+
+// 渲染序号列
+function randerIndex (paginationOptions: PaginationOptions, rowIndex: number) {
+  return (<TableCell> { (paginationOptions.page - 1) * paginationOptions.size + rowIndex + 1 } </TableCell>)
+}
+
+// 渲染表格内容
+function randerTableCell (cellContent: VNode | string | null) {
+  return (<TableCell>{cellContent}</TableCell>) 
 }

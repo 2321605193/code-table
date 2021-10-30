@@ -28,6 +28,7 @@ export type IxPublicPropTypes<O> = O extends object
   : { [K in string]: any }
 
 
+
 // Props 定义在这里
 export const tableProps = {
   data: {

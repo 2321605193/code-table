@@ -4,11 +4,11 @@
 
 
 import { defineComponent, inject } from '@vue/composition-api'
-import {VNode} from 'vue';
 import TableRow from '../body/table-row';
 import HeaderCell from './header-cell';
 import SortButton from '../sort-button'
 import { Columns, ColumnsType } from '../types';
+import { VNode } from 'vue';
 
 export default defineComponent({
   name: 'TableHeader',
@@ -17,16 +17,10 @@ export default defineComponent({
     const { tableColumns, headerLess, headerSlot }  = inject('tableProvide')
 
     return () => {
-      let children: VNode | VNode[] | null = [];
-      if (headerLess.value) {
-        children = null
-      } else {
-        children = randerHeader(tableColumns, headerSlot)
-      }
-
+      let headerDOM = randerHeader(tableColumns, headerSlot);
       return (
         <thead>
-          <TableRow>{children}</TableRow>
+          <TableRow>{!headerLess.value && headerDOM}</TableRow>
         </thead>
       )
     }
@@ -35,32 +29,46 @@ export default defineComponent({
 
 
 function randerHeader (columnsList: Columns[], headerSlot: Record<string, any>) {
-  return columnsList.map((column: Record<string, any>) => {
+  return columnsList.map(column => {
 
     if (column?.type === ColumnsType.index) {
-      return (
-        <HeaderCell>
-          <span class='fj-table-header__cell'>序号</span>
-        </HeaderCell>
-      )
+      return randerIndex()
     }
 
     if (headerSlot[column.key]) {
-      return headerSlot[column.key]()
+      return randerHeaderSlot(headerSlot[column.key](), column)
     }
 
-    let sortButton = null;
-    if (column.sortable) {
-      sortButton = SortButton;
-    }
-
-    return (
-      <HeaderCell>
-        <div class='fj-table__header-cell'>
-          <span class='fj-table-header__cell-title'>{column.title}</span>
-          <sortButton dataKey={column.key} sortable={column.sortable} />
-        </div>
-      </HeaderCell>
-    )  
+    return randerHeaderCell(column)
   })
+}
+
+// 渲染序号列
+function randerIndex () {
+  return (
+    <HeaderCell>
+      <span class='fj-table-header__cell'>序号</span>
+    </HeaderCell>
+  )
+}
+
+function randerHeaderSlot (slotContent: VNode | null, column: Columns) {
+  return (
+    <HeaderCell>
+      {slotContent}
+      {column.sortable && <SortButton dataKey={column.key} sortable={column.sortable} />}
+    </HeaderCell>
+  )
+}
+
+// 渲染表头
+function randerHeaderCell (column: Columns) {
+  return (
+    <HeaderCell>
+      <div class='fj-table__header-cell'>
+        <span class='fj-table-header__cell-title'>{column.title || '-'}</span>
+        {column.sortable && <SortButton dataKey={column.key} sortable={column.sortable} />}
+      </div>
+    </HeaderCell>
+  )
 }
