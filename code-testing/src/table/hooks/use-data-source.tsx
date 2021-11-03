@@ -1,11 +1,17 @@
 
-import { computed, Ref } from '@vue/composition-api'
+import { computed, Ref, ComputedRef } from '@vue/composition-api'
 import { SortOptions, PaginationOptions} from '../types'
 
-export function useDataSource (props: Record<string, any>, paginationOptions: Ref<PaginationOptions>, sortOptions: Ref<SortOptions>) {
+export function useDataSource (props: Record<string, any>, paginationOptions: ComputedRef<PaginationOptions>, sortOptions: Ref<SortOptions>) {
+
+  // console.trace('useDataSource data', props.data)
+  // console.trace('useDataSource paginationOptions', paginationOptions.value)
+  // console.trace('useDataSource sortOptions', sortOptions.value)
 
     let tableData =  props.data;
 
+
+    // 排序分页后的结果
     let filterTableData = computed(() => {
       let templateData = tableData.slice();
       if (sortOptions.value.sortRule) {
@@ -18,6 +24,8 @@ export function useDataSource (props: Record<string, any>, paginationOptions: Re
       return templateData
       
     })
+
+    // console.log(filterTableData.value)
   
     return {
       filterTableData

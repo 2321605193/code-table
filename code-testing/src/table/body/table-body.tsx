@@ -2,7 +2,7 @@
 
 
 
-import { defineComponent, inject, reactive, h } from '@vue/composition-api'
+import { defineComponent, inject, ComputedRef, h } from '@vue/composition-api'
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import { Columns, PaginationOptions, ColumnsType, TableData } from '../types';
@@ -11,10 +11,10 @@ import { VNode } from 'vue';
 export default defineComponent({
   name: 'TableBody',
   setup() {
-  const { filterTableData,  props, paginationOptions} = inject('tableProvide')
+  const { filterTableData, props, paginationOptionsValue} = inject('tableProvide')
 
     return () => {
-      let rowList = randerColumnsList(filterTableData.value, props.columns, paginationOptions.value)
+      let rowList = randerColumnsList(filterTableData.value, props.columns, paginationOptionsValue.value)
       return (
         <tbody>{rowList}</tbody>
       )
@@ -24,9 +24,17 @@ export default defineComponent({
 
 
 function randerColumnsList(TableData: TableData[], columns: Columns[], paginationOptions: PaginationOptions) {
+
+  // console.trace('randerColumnsList')
+  // console.trace('TableData', TableData)
+  // console.trace('columns', columns)
+  // console.trace('paginationOptions', paginationOptions)
+
   return TableData.map((row, rowIndex) => {
 
     let columnsList = randerColumns(row, columns, paginationOptions, rowIndex);
+
+    // console.log('columnsList', columnsList)
 
     return (
       <TableRow row = {rowIndex + 1}> {columnsList} </TableRow>
@@ -35,6 +43,13 @@ function randerColumnsList(TableData: TableData[], columns: Columns[], paginatio
 }
 
 function randerColumns (rowData: Record<string, any>, columns: Columns[], paginationOptions: PaginationOptions, rowIndex: number) { 
+
+  // console.trace('randerColumns')
+  // console.trace('rowData', rowData)
+  // console.trace('columns', columns)
+  // console.trace('paginationOptions', paginationOptions)
+  // console.trace('rowIndex', rowIndex)
+
   return columns.map((column) => {
 
     // 序号

@@ -9,9 +9,11 @@ import { SortOptions, SortOrderBy, SortAble } from '../types'
 
 export function useSort() {
 
+  // 排序方式  倒序、正序、默认
   const defaultOrder = [SortOrderBy.desc, SortOrderBy.asc, SortOrderBy.default]
 
 
+  // 排序配置
   const sortOptions: Ref<SortOptions> = ref({
     sortRule: (curr: number, next: number) => curr - next,
     sortKey: '',
@@ -22,23 +24,41 @@ export function useSort() {
     return sortOptions.value.activeOrderBy === SortOrderBy.desc ? -1 : 1
   })
 
+  // 修改
+  const changeSortOptions = (key: string, nextOrderBy: SortOrderBy, sortFunction: Function) => {
+
+    // console.log('changeSortOptions', key, nextOrderBy, sortFunction)
+    
+    sortOptions.value.activeOrderBy = nextOrderBy
+    sortOptions.value.sortRule = sortOptions.value.activeOrderBy === SortOrderBy.default ? null : (curr: Record<string, any>, next: Record<string, any>) => oderFlag.value * sortFunction(curr, next)
+    sortOptions.value.sortKey = key
+  }
 
 
   const setSortOptions = (sortable: SortAble | boolean, key: string) => {
 
+    // console.trace('setSortOptions sortable', sortable)
+    // console.trace('setSortOptions key', key)
+
+    // 默认排序规则
     const deafultSort = (curr: Record<string, any>, next: Record<string, any>) => curr[key] - next[key]
 
     // 有自定义排序规则使用自定义，否则使用默认值
     const sortFunction = (sortable.sorter && isFunction(sortable.sorter)) ? sortable.sorter : deafultSort
 
-    // 排序方式
-    const order = sortable?.orderBy ? sortable.orderBy : defaultOrder
-    //下一个排序规则
-    const nextOrderBy = order.indexOf(sortOptions.value.activeOrderBy) === -1 ? SortOrderBy.desc : order[order.indexOf(sortOptions.value.activeOrderBy) + 1]
-
-    sortOptions.value.activeOrderBy =  key === sortOptions.value.sortKey  && nextOrderBy ? nextOrderBy : SortOrderBy.desc
-    sortOptions.value.sortRule = sortOptions.value.activeOrderBy === SortOrderBy.default ? null : (curr: Record<string, any>, next: Record<string, any>) => oderFlag.value * sortFunction(curr, next)
-    sortOptions.value.sortKey = key
+    // 排序方式数组  有传入则使用自定义的，否则使用默认
+    const order = sortable.orderBy ||  defaultOrder
+    
+    // 获取将要排序的方式
+    let nextOrderBy = order[order.indexOf(sortOptions.value.activeOrderBy) + 1];
+   
+    // 若排序方式不是desc/asc/default其中一个 或者切换排序列，设置order第一个排序方式
+    if (!nextOrderBy || key !== sortOptions.value.sortKey) {
+    // !nextOrderBy && console.error(nextOrderBy, '不是desc/asc/default其中一个')
+      nextOrderBy = order[0]
+    }
+    
+    changeSortOptions(key, nextOrderBy, sortFunction)
 
   }
 

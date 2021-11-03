@@ -14,23 +14,16 @@ export default defineComponent({
   props: tableProps,
   setup(props, {slots}) {
 
-
-    let headerSlot = reactive(slots)
-  
-  
-
-
-
-    let { paginationOptionsChange, paginationOptions } =  usePagination(props);
+    let { paginationOptionsChange, paginationOptionsValue } =  usePagination(props);
     let { sortOptions, setSortOptions } = useSort();
-    let { filterTableData } = useDataSource(props, paginationOptions, sortOptions)
+    let { filterTableData } = useDataSource(props, paginationOptionsValue, sortOptions)
 
     provide('tableProvide', {
       props,
-      headerSlot,
+      slots,
       filterTableData,
       paginationOptionsChange,
-      paginationOptions,
+      paginationOptionsValue,
       setSortOptions,
       sortOptions
     })

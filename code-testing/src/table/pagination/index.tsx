@@ -7,9 +7,9 @@ export default defineComponent({
   setup() {
 
     let sizeList = reactive([10,25,50,100])
-    let { props, paginationOptionsChange, paginationOptions } = inject('tableProvide')
-    let paginationSize = ref(paginationOptions.value.size);
-    let paginationPage = ref(paginationOptions.value.page);
+    let { props, paginationOptionsChange, paginationOptionsValue } = inject('tableProvide')
+    let paginationSize = ref(paginationOptionsValue.value.size);
+    let paginationPage = ref(paginationOptionsValue.value.page);
 
 
     let pageList = computed(() => {
