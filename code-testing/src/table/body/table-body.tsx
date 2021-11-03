@@ -11,10 +11,10 @@ import { VNode } from 'vue';
 export default defineComponent({
   name: 'TableBody',
   setup() {
-  const { filterTableData,  tableColumns, paginationOptions} = inject('tableProvide')
+  const { filterTableData,  props, paginationOptions} = inject('tableProvide')
 
     return () => {
-      let rowList = randerColumnsList(filterTableData.value, tableColumns, paginationOptions.value)
+      let rowList = randerColumnsList(filterTableData.value, props.columns, paginationOptions.value)
       return (
         <tbody>{rowList}</tbody>
       )

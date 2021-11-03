@@ -8,15 +8,15 @@ import TableBody from './body/table-body'
 
 export default defineComponent({
   name: 'Table',
-  setup(props, {slots}) {
+  setup() {
 
-    const { headerLess }  = inject('tableProvide')
+    const { props }  = inject('tableProvide')
     return () => {
       return (
         <section class='fj-table-content'>
        
             <table class='fj-table-body' cellspacing={0} cellpadding={0}>
-              { !headerLess.value && <TableHeader  /> }
+              { !props.headerLess && <TableHeader  /> }
               <TableBody  />
             </table>
         </section>

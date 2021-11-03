@@ -7,13 +7,13 @@ export default defineComponent({
   setup() {
 
     let sizeList = reactive([10,25,50,100])
-    let { total, paginationOptionsChange, paginationOptions } = inject('tableProvide')
+    let { props, paginationOptionsChange, paginationOptions } = inject('tableProvide')
     let paginationSize = ref(paginationOptions.value.size);
     let paginationPage = ref(paginationOptions.value.page);
 
 
     let pageList = computed(() => {
-      return Math.ceil(total.value / paginationSize.value)
+      return Math.ceil(props.data.length / paginationSize.value)
     })
 
     let paginationSizeChange = (e: Event) => {
@@ -64,7 +64,7 @@ export default defineComponent({
       return (
         <section class='pagination-content'>
           <div>
-            <span> 共{total.value}条 </span>
+            <span> 共{props.data.length}条 </span>
           </div>
           <div>
             <span>第</span>

@@ -48,6 +48,14 @@ export const tableProps = {
     type: Boolean,
     default: false,
   },
+
+  paginationOptions: {
+    type: Object,
+    default: (): PaginationOptions => ({
+      page: 1,
+      size: 10,
+    }),
+  },
 }
 
 export type TablePublicProps = IxPublicPropTypes<typeof tableProps>

@@ -14,10 +14,10 @@ export default defineComponent({
   name: 'TableHeader',
   setup () {
 
-    const { tableColumns, headerSlot }  = inject('tableProvide')
+    const { props, headerSlot }  = inject('tableProvide')
 
     return () => {
-      let headerDOM = randerHeader(tableColumns, headerSlot);
+      let headerDOM = randerHeader(props.columns, headerSlot);
       return (
         <thead>
           <TableRow>{headerDOM}</TableRow>

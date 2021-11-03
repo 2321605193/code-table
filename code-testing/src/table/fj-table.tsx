@@ -16,24 +16,19 @@ export default defineComponent({
 
 
     let headerSlot = reactive(slots)
-    let tableColumns = reactive(props.columns)
-    const headerLess = ref(props.headerLess)
-    const paginationLess = ref(props.paginationLess)
+  
+  
 
-    let total = computed(()=> {
-      return props.data.length;
-    })
 
-    let { paginationOptionsChange, paginationOptions } =  usePagination();
+
+    let { paginationOptionsChange, paginationOptions } =  usePagination(props);
     let { sortOptions, setSortOptions } = useSort();
-    let { filterTableData } = useDataSource(props.data, paginationOptions, sortOptions, paginationLess)
+    let { filterTableData } = useDataSource(props, paginationOptions, sortOptions)
 
     provide('tableProvide', {
-      total,
+      props,
       headerSlot,
       filterTableData,
-      tableColumns,
-      headerLess,
       paginationOptionsChange,
       paginationOptions,
       setSortOptions,
@@ -45,7 +40,7 @@ export default defineComponent({
         <section class='fj-table'>
           <Table /> 
           <br/>
-          {!paginationLess.value && <Pagination />}
+          {!props.paginationLess && <Pagination />}
         </section>
       )
     }
