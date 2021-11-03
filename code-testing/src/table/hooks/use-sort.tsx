@@ -52,7 +52,7 @@ export function useSort() {
     // 获取将要排序的方式
     let nextOrderBy = order[order.indexOf(sortOptions.value.activeOrderBy) + 1];
    
-    // 若排序方式不是desc/asc/default其中一个获取取值超出数组，设置order第一个排序方式
+    // 若排序方式不是desc/asc/default其中一个或者取值超出数组，设置order第一个排序方式
     if (!nextOrderBy) {
     // console.error(nextOrderBy, '不是desc/asc/default其中一个')
       nextOrderBy = order[0]

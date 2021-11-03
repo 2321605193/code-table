@@ -6,6 +6,8 @@ export default defineComponent({
   name: 'Pagination',
   setup() {
 
+    // 分页器  随便写写...
+
     let sizeList = reactive([10,25,50,100])
     let { props, paginationOptionsChange, paginationOptionsValue } = inject('tableProvide')
     let paginationSize = ref(paginationOptionsValue.value.size);
@@ -17,16 +19,16 @@ export default defineComponent({
     })
 
     let paginationSizeChange = (e: Event) => {
-      paginationSize.value = Number(e.target?.value) || 10;
+      paginationSize.value = Number(e.target?.value || 10);
       
     }
 
     let paginationPageChange = (e: Event) => {
-      paginationPage.value = Number(e.target?.value) || 10;
+      paginationPage.value = Number(e.target?.value || 1) ;
       
     }
 
-    watch(paginationSize, (newValue) => {
+    watch(() => paginationSize.value, (newValue) => {
 
       if (pageList.value < paginationPage.value) {
         paginationPage.value = 1
@@ -37,7 +39,7 @@ export default defineComponent({
       })
     })
 
-    watch(paginationPage, (newValue) => {
+    watch(() => paginationPage.value, (newValue) => {
       paginationOptionsChange({
         size: paginationSize.value,
         page: paginationPage.value
