@@ -15,8 +15,8 @@ export default defineComponent({
   setup(props, {slots}) {
 
     let { paginationOptionsChange, paginationOptionsValue } =  usePagination(props);
-    let { sortOptions, setSortOptions } = useSort();
-    let { filterTableData } = useDataSource(props, paginationOptionsValue, sortOptions)
+    let { sortOptionsValue, setSortOptions } = useSort();
+    let { filterTableData } = useDataSource(props, paginationOptionsValue, sortOptionsValue)
 
     provide('tableProvide', {
       props,
@@ -25,7 +25,7 @@ export default defineComponent({
       paginationOptionsChange,
       paginationOptionsValue,
       setSortOptions,
-      sortOptions
+      sortOptionsValue
     })
 
     return () => {

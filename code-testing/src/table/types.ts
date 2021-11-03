@@ -98,9 +98,7 @@ export type Columns = {
   key: string
   render?: Function
   // eslint-disable-next-line @typescript-eslint/ban-types
-  sortable?: Function | null
+  sortable?: SortAble | Boolean
 }
-
-
 
 

@@ -59,8 +59,10 @@ function randerIndex () {
 function randerHeaderCell (content: VNode |string | null, column: Columns) {
   return (
     <HeaderCell>
-      <span class='fj-table-header__cell-title'>{content}</span>
-      {column.sortable && <SortButton dataKey={column.key} sortable={column.sortable} />}
+      <div class='fj-table__header-cell'>
+        <span class='fj-table-header__cell-title'>{content}</span>
+        {column.sortable && <SortButton dataKey={column.key} sortable={column.sortable} />}
+      </div>
     </HeaderCell>
   )
 }

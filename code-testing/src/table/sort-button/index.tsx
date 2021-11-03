@@ -18,17 +18,20 @@ export default defineComponent({
     }
   },
   setup(props) {
-    let  { setSortOptions, sortOptions } = inject('tableProvide')
+    let  { setSortOptions, sortOptionsValue } = inject('tableProvide')
     let activeOrderBy = ref(SortOrderBy.default)
 
-    watch([() => sortOptions.value.sortKey, () => sortOptions.value.activeOrderBy], () => {
-      if (sortOptions.value.sortKey !== props.dataKey) {
+    watch([() => sortOptionsValue.value.sortKey, () => sortOptionsValue.value.activeOrderBy], () => {
+      
+      // 不是当前key置为默认
+      if (sortOptionsValue.value.sortKey !== props.dataKey) {
         activeOrderBy.value = SortOrderBy.default
       } else {
-        activeOrderBy.value = sortOptions.value.activeOrderBy
+        activeOrderBy.value = sortOptionsValue.value.activeOrderBy
       }
     })
 
+    // 切换排序规则
     let sortData = () => {
       setSortOptions(props.sortable, props.dataKey)
     }

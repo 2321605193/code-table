@@ -2,7 +2,7 @@
 
 
 
-import { defineComponent, inject, ComputedRef, h } from '@vue/composition-api'
+import { defineComponent, inject, h } from '@vue/composition-api'
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import { Columns, PaginationOptions, ColumnsType, TableData } from '../types';

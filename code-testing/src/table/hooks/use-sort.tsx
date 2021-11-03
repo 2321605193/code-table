@@ -24,7 +24,7 @@ export function useSort() {
     return sortOptions.value.activeOrderBy === SortOrderBy.desc ? -1 : 1
   })
 
-  // 修改
+  // 修改sort 配置
   const changeSortOptions = (key: string, nextOrderBy: SortOrderBy, sortFunction: Function) => {
 
     // console.log('changeSortOptions', key, nextOrderBy, sortFunction)
@@ -52,9 +52,9 @@ export function useSort() {
     // 获取将要排序的方式
     let nextOrderBy = order[order.indexOf(sortOptions.value.activeOrderBy) + 1];
    
-    // 若排序方式不是desc/asc/default其中一个 或者切换排序列，设置order第一个排序方式
-    if (!nextOrderBy || key !== sortOptions.value.sortKey) {
-    // !nextOrderBy && console.error(nextOrderBy, '不是desc/asc/default其中一个')
+    // 若排序方式不是desc/asc/default其中一个获取取值超出数组，设置order第一个排序方式
+    if (!nextOrderBy) {
+    // console.error(nextOrderBy, '不是desc/asc/default其中一个')
       nextOrderBy = order[0]
     }
     
@@ -62,8 +62,13 @@ export function useSort() {
 
   }
 
+  // 通过computed获取值
+  const sortOptionsValue = computed(()=>{
+    return sortOptions.value
+  })
+
   return {
-    sortOptions,
+    sortOptionsValue,
     setSortOptions,
   }
 

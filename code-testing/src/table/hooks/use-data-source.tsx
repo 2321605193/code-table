@@ -1,8 +1,8 @@
 
-import { computed, Ref, ComputedRef } from '@vue/composition-api'
+import { computed, ComputedRef } from '@vue/composition-api'
 import { SortOptions, PaginationOptions} from '../types'
 
-export function useDataSource (props: Record<string, any>, paginationOptions: ComputedRef<PaginationOptions>, sortOptions: Ref<SortOptions>) {
+export function useDataSource (props: Record<string, any>, paginationOptions: ComputedRef<PaginationOptions>, sortOptions: ComputedRef<SortOptions>) {
 
   // console.trace('useDataSource data', props.data)
   // console.trace('useDataSource paginationOptions', paginationOptions.value)
