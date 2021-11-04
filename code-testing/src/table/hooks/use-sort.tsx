@@ -1,13 +1,13 @@
 // 排序相关
 import { ref, computed, Ref } from '@vue/composition-api'
 import { isFunction } from 'lodash-es';
-import { SortOptions, SortOrderBy, SortAble } from '../types'
+import { SortOptions, SortOrderBy, SortAble, UserSort } from '../types'
 
 
 
 
 
-export function useSort() {
+export function useSort(): UserSort {
 
   // 排序方式  倒序、正序、默认
   const defaultOrder = [SortOrderBy.desc, SortOrderBy.asc, SortOrderBy.default]

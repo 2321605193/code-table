@@ -151,41 +151,7 @@
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a>
-<a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a>
-<a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -265,35 +231,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 &nbsp;
-import type { PropOptions, PropType } from 'vue-types/dist/types'
-type Prop&lt;T, D = T&gt; = PropOptions&lt;T, D&gt; | PropType&lt;T&gt;
-type PublicRequiredKeys&lt;T&gt; = {
-  [K in keyof T]: T[K] extends { required: true } ? K : never
-}[keyof T]
 &nbsp;
-type PublicOptionalKeys&lt;T&gt; = Exclude&lt;keyof T, PublicRequiredKeys&lt;T&gt;&gt;
-type InferPropType&lt;T&gt; = T extends null
-  ? any // null &amp; true would fail to infer
-  : T extends { type: null | true }
-    ? any // As TS issue https://github.com/Microsoft/TypeScript/issues/14829 // somehow `ObjectConstructor` when inferred from { (): T } becomes `any` // `BooleanConstructor` when inferred from PropConstructor(with PropMethod) becomes `Boolean`
-    : T extends ObjectConstructor | { type: ObjectConstructor }
-      ? Record&lt;string, any&gt;
-      : T extends BooleanConstructor | { type: BooleanConstructor }
-        ? boolean
-        : T extends Prop&lt;infer V, infer D&gt;
-          ? unknown extends V
-            ? D
-            : V
-          : T
-&nbsp;
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type IxPublicPropTypes&lt;O&gt; = O extends object
-  ? { [K in PublicRequiredKeys&lt;O&gt;]: InferPropType&lt;O[K]&gt; } &amp; { [K in PublicOptionalKeys&lt;O&gt;]?: InferPropType&lt;O[K]&gt; }
-  : { [K in string]: any }
-&nbsp;
+import { ComputedRef } from '@vue/composition-api'
 &nbsp;
 &nbsp;
 // Props 定义在这里
@@ -325,36 +281,8 @@ export const tableProps = {
   },
 }
 &nbsp;
-export type TablePublicProps = IxPublicPropTypes&lt;typeof tableProps&gt;
-&nbsp;
-&nbsp;
+// 表格相关TS
 export type TableData = Record&lt;string, any&gt;[];
-&nbsp;
-export type PaginationOptions = {
-  page: number
-  size: number
-}
-&nbsp;
-export enum SortOrderBy {
-  default = 'default',
-  desc = 'desc',
-  asc = 'asc'
-}
-&nbsp;
-&nbsp;
-export type SortOptions = {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  sortRule: Function | null
-  sortKey: string
-  activeOrderBy: SortOrderBy
-}
-&nbsp;
-export type SortAble = {
-  orderBy?: SortOrderBy[]
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  sorter?: Function
-}
-&nbsp;
 export enum ColumnsType {
   index = 'index'
 }
@@ -369,6 +297,48 @@ export type Columns = {
 }
 &nbsp;
 &nbsp;
+export type UserDataSource = {
+  filterTableData: ComputedRef&lt;TableData&gt;
+}
+&nbsp;
+// 排序相关ts
+export enum SortOrderBy {
+  default = 'default',
+  desc = 'desc',
+  asc = 'asc'
+}
+&nbsp;
+export type SortOptions = {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  sortRule: Function | null
+  sortKey: string
+  activeOrderBy: SortOrderBy
+}
+&nbsp;
+export type SortAble = {
+  orderBy?: SortOrderBy[]
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  sorter?: Function
+}
+&nbsp;
+export type UserSort = {
+  sortOptionsValue: ComputedRef&lt;SortOptions&gt;
+  setSortOptions: (sortable: SortAble | boolean, key: string) =&gt; void
+}
+&nbsp;
+// 分页相关
+export type PaginationOptions = {
+  page: number
+  size: number
+}
+&nbsp;
+&nbsp;
+export type UsePagination = {
+  paginationOptionsValue: ComputedRef&lt;PaginationOptions&gt;
+  paginationOptionsChange: (v: PaginationOptions) =&gt; void
+}
+&nbsp;
+&nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -376,7 +346,7 @@ export type Columns = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 03 2021 23:52:54 GMT+0800 (中国标准时间)
+                at Thu Nov 04 2021 11:56:38 GMT+0800 (中国标准时间)
             </div>
         </div>
         <script src="../prettify.js"></script>

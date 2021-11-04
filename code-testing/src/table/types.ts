@@ -1,32 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { PropOptions, PropType } from 'vue-types/dist/types'
-type Prop<T, D = T> = PropOptions<T, D> | PropType<T>
-type PublicRequiredKeys<T> = {
-  [K in keyof T]: T[K] extends { required: true } ? K : never
-}[keyof T]
 
-type PublicOptionalKeys<T> = Exclude<keyof T, PublicRequiredKeys<T>>
-type InferPropType<T> = T extends null
-  ? any // null & true would fail to infer
-  : T extends { type: null | true }
-    ? any // As TS issue https://github.com/Microsoft/TypeScript/issues/14829 // somehow `ObjectConstructor` when inferred from { (): T } becomes `any` // `BooleanConstructor` when inferred from PropConstructor(with PropMethod) becomes `Boolean`
-    : T extends ObjectConstructor | { type: ObjectConstructor }
-      ? Record<string, any>
-      : T extends BooleanConstructor | { type: BooleanConstructor }
-        ? boolean
-        : T extends Prop<infer V, infer D>
-          ? unknown extends V
-            ? D
-            : V
-          : T
-
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type IxPublicPropTypes<O> = O extends object
-  ? { [K in PublicRequiredKeys<O>]: InferPropType<O[K]> } & { [K in PublicOptionalKeys<O>]?: InferPropType<O[K]> }
-  : { [K in string]: any }
-
+import { ComputedRef } from '@vue/composition-api'
 
 
 // Props 定义在这里
@@ -58,22 +34,32 @@ export const tableProps = {
   },
 }
 
-export type TablePublicProps = IxPublicPropTypes<typeof tableProps>
-
-
+// 表格相关TS
 export type TableData = Record<string, any>[];
-
-export type PaginationOptions = {
-  page: number
-  size: number
+export enum ColumnsType {
+  index = 'index'
 }
 
+export type Columns = {
+  type?: ColumnsType
+  title: string
+  key: string
+  render?: Function
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  sortable?: SortAble | Boolean
+}
+
+
+export type UserDataSource = {
+  filterTableData: ComputedRef<TableData>
+}
+
+// 排序相关ts
 export enum SortOrderBy {
   default = 'default',
   desc = 'desc',
   asc = 'asc'
 }
-
 
 export type SortOptions = {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -88,17 +74,21 @@ export type SortAble = {
   sorter?: Function
 }
 
-export enum ColumnsType {
-  index = 'index'
+export type UserSort = {
+  sortOptionsValue: ComputedRef<SortOptions>
+  setSortOptions: (sortable: SortAble | boolean, key: string) => void
 }
 
-export type Columns = {
-  type?: ColumnsType
-  title: string
-  key: string
-  render?: Function
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  sortable?: SortAble | Boolean
+// 分页相关
+export type PaginationOptions = {
+  page: number
+  size: number
+}
+
+
+export type UsePagination = {
+  paginationOptionsValue: ComputedRef<PaginationOptions>
+  paginationOptionsChange: (v: PaginationOptions) => void
 }
 
 

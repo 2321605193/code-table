@@ -1,14 +1,14 @@
 // 分页器相关
 
 import { computed, Ref, ref  } from '@vue/composition-api'
-import { PaginationOptions} from '../types'
+import { PaginationOptions, UsePagination} from '../types'
 
-export function usePagination (props: Record<string, any>) {
+export function usePagination (props: Record<string, any>): UsePagination {
   
     // 分页配置
     let paginationOptions: Ref<PaginationOptions> = ref({
-      page: props.paginationOptions.page || 1,
-      size: props.paginationOptions.size || 10
+      page: props.paginationOptions?.page || 1,
+      size: props.paginationOptions?.size || 10
     });
 
     // 通过函数修改数据

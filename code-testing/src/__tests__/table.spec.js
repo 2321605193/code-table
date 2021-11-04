@@ -76,6 +76,19 @@ describe('Table', () => {
     })
   })
 
+  test('props paginationOptions test', () => {
+    const wrapper = TableMount({
+      propsData: {
+        data: data,
+        columns: columns,
+        paginationOptions: {
+          page: 0,
+          size: 0,
+        },
+      },
+    })
+  })
+
 
   test('page or size change test', async () => {
     const wrapper = TableMount({
@@ -85,16 +98,15 @@ describe('Table', () => {
       },
     })
 
-    const vm = wrapper.vm
     expect(wrapper.find('#page').exists()).toBe(true)
 
     const pageSelect = wrapper.find('#page')
     const sizeSelect = wrapper.find('#size')
 
 
-    await pageSelect.trigger('change', { value:0 })
+    await pageSelect.trigger('change', { value: 0 })
 
-    await sizeSelect.trigger('change', { value:0 })
+    await sizeSelect.trigger('change', { value: 0 })
 
     await pageSelect.trigger('change', {
       value:2,
@@ -103,22 +115,6 @@ describe('Table', () => {
     await sizeSelect.trigger('change', {
       value:25,
     })
-    // pagination.vm.$data.paginationSizeChange({
-    //   target: {
-    //     value: 25,
-    //   },
-    // })
-
-
-    // pagination.vm.$data.paginationPageChange({
-    //   target: {
-    //     value: 2,
-    //   },
-    // })
-
-    // expect(vm.$data.paginationOptionsValue.value.page).toBe(2)
-    // expect(vm.$data.paginationOptionsValue.value.size).toBe(25)
-
   })
 
 
@@ -135,10 +131,13 @@ describe('Table', () => {
 
     const sortButton = wrapper.findComponent(SortButton)
 
+    console.log(sortButton.$data)
+
     await sortButton.trigger('click')
     console.log(JSON.stringify(vm.$data.filterTableData) === JSON.stringify(data.sort((curr, next) => (curr.age - next.age))) )
-
-    // expect(wrapper.emittedByOrder().map(e => e.name)).toEqual(['foo', 'bar'])
+    await sortButton.trigger('click')
+    await sortButton.trigger('click')
+    // expect(wrapper.find(`.sort-button__icon--${columns[1].sortable.orderBy[0]}`).exists()).toBe(true)
 
   })
 

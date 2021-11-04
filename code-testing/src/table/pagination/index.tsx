@@ -1,6 +1,6 @@
 
 
-import { defineComponent, reactive, inject, ref, computed, watch,  } from '@vue/composition-api'
+import { defineComponent, reactive, inject, ref, computed, watch, watchEffect,  } from '@vue/composition-api'
 
 export default defineComponent({
   name: 'Pagination',
@@ -28,7 +28,7 @@ export default defineComponent({
       
     }
 
-    watch(() => paginationSize.value, (newValue) => {
+    watchEffect(()=>{
 
       if (pageList.value < paginationPage.value) {
         paginationPage.value = 1
@@ -38,16 +38,6 @@ export default defineComponent({
         page: paginationPage.value
       })
     })
-
-    watch(() => paginationPage.value, (newValue) => {
-      paginationOptionsChange({
-        size: paginationSize.value,
-        page: paginationPage.value
-      })
-    })
-
-
-
 
     return () => {
       let sizeSelectOptions = sizeList.map((item) => {

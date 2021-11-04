@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="6" failures="0" errors="0" time="5.643">
-  <testsuite name="Table" errors="0" failures="0" skipped="0" timestamp="2021-11-03T15:52:50" time="3.718" tests="6">
-    <testcase classname="Table render" name="Table render" time="0.044">
+<testsuites name="jest tests" tests="7" failures="0" errors="0" time="5.656">
+  <testsuite name="Table" errors="0" failures="0" skipped="0" timestamp="2021-11-04T03:56:34" time="3.608" tests="7">
+    <testcase classname="Table render" name="Table render" time="0.045">
     </testcase>
-    <testcase classname="Table props paginationLess test" name="Table props paginationLess test" time="0.016">
+    <testcase classname="Table props paginationLess test" name="Table props paginationLess test" time="0.019">
     </testcase>
-    <testcase classname="Table props headerLess test" name="Table props headerLess test" time="0.01">
+    <testcase classname="Table props headerLess test" name="Table props headerLess test" time="0.013">
     </testcase>
     <testcase classname="Table props columns test" name="Table props columns test" time="0.038">
     </testcase>
-    <testcase classname="Table page or size change test" name="Table page or size change test" time="0.038">
+    <testcase classname="Table props paginationOptions test" name="Table props paginationOptions test" time="0.03">
     </testcase>
-    <testcase classname="Table sort test" name="Table sort test" time="0.069">
+    <testcase classname="Table page or size change test" name="Table page or size change test" time="0.03">
+    </testcase>
+    <testcase classname="Table sort test" name="Table sort test" time="0.076">
     </testcase>
   </testsuite>
 </testsuites>
