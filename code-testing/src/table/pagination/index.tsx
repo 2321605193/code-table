@@ -24,8 +24,7 @@ export default defineComponent({
     }
 
     let paginationPageChange = (e: Event) => {
-      paginationPage.value = Number(e.target?.value || 1) ;
-      
+      paginationPage.value = Number(e.target?.value || 1);
     }
 
     watchEffect(()=>{

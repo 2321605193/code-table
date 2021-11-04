@@ -43,8 +43,12 @@ export function useSort(): UserSort {
     // 默认排序规则
     const deafultSort = (curr: Record<string, any>, next: Record<string, any>) => curr[key] - next[key]
 
+    let  sortFunction = deafultSort
+
     // 有自定义排序规则使用自定义，否则使用默认值
-    const sortFunction = (sortable.sorter && isFunction(sortable.sorter)) ? sortable.sorter : deafultSort
+    if (sortable.sorter && isFunction(sortable.sorter)) {
+      sortFunction = sortable.sorter
+    }
 
     // 排序方式数组  有传入则使用自定义的，否则使用默认
     const order = sortable.orderBy ||  defaultOrder

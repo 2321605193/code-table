@@ -23,6 +23,10 @@ const columns = [{
   render: rowData => {
     return 'love: ' + rowData.love
   },
+  sortable: {
+    orderBy: ['desc', 'asc'],
+    sorter: (curr, next) => curr.love.length - next.love.length,
+  },
 }]
 const data = Array.from({ length: 3 }, (value, index) => {
   return {
@@ -104,17 +108,13 @@ describe('Table', () => {
     const sizeSelect = wrapper.find('#size')
 
 
-    await pageSelect.trigger('change', { value: 0 })
+    await pageSelect.setValue(0)
 
-    await sizeSelect.trigger('change', { value: 0 })
+    await sizeSelect.setValue(0)
 
-    await pageSelect.trigger('change', {
-      value:2,
-    })
+    // await pageSelect.setValue('change', 2)
 
-    await sizeSelect.trigger('change', {
-      value:25,
-    })
+    // await sizeSelect.setValue('change', 25)
   })
 
 
@@ -135,6 +135,37 @@ describe('Table', () => {
 
     await sortButton.trigger('click')
     console.log(JSON.stringify(vm.$data.filterTableData) === JSON.stringify(data.sort((curr, next) => (curr.age - next.age))) )
+    await sortButton.trigger('click')
+    await sortButton.trigger('click')
+    // expect(wrapper.find(`.sort-button__icon--${columns[1].sortable.orderBy[0]}`).exists()).toBe(true)
+
+  })
+
+  test('sort sortable boolean test', async () => {
+    const wrapper = TableMount({
+      propsData: {
+        data: data,
+        columns: [{
+          title: '爱好',
+          key: 'love',
+          render: rowData => {
+            return 'love: ' + rowData.love
+          },
+          sortable: {
+            orderBy: ['desc', 'asc'],
+            sorter: (curr, next) => curr.love.length - next.love.length,
+          },
+        }],
+      },
+    })
+
+    expect(wrapper.find('.sort-button').exists()).toBe(true)
+
+    const sortButton = wrapper.findComponent(SortButton)
+
+    console.log(sortButton.$data)
+
+    await sortButton.trigger('click')
     await sortButton.trigger('click')
     await sortButton.trigger('click')
     // expect(wrapper.find(`.sort-button__icon--${columns[1].sortable.orderBy[0]}`).exists()).toBe(true)
