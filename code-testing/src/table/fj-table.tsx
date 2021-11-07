@@ -3,11 +3,10 @@ import { defineComponent, reactive, ref, provide, computed, Ref } from '@vue/com
 import { tableProps, TableData, SortOptions, PaginationOptions} from './types'
 import Table from './table';
 import Pagination from './pagination';
-import { useSort } from './hooks/use-sort';
-import { usePagination } from './hooks/use-pagination';
-import { useDataSource } from './hooks/use-data-source';
-
-
+import { useSort } from './composables/use-sort';
+import { usePagination } from './composables/use-pagination';
+import { useDataSource } from './composables/use-data-source';
+import {TABLE_PROVIDE} from './token';
 
 export default defineComponent({
   name: 'fjTable',
@@ -18,7 +17,7 @@ export default defineComponent({
     let { sortOptionsValue, setSortOptions } = useSort();
     let { filterTableData } = useDataSource(props, paginationOptionsValue, sortOptionsValue)
 
-    provide('tableProvide', {
+    provide(TABLE_PROVIDE, {
       props,
       slots,
       filterTableData,

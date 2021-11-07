@@ -1,5 +1,5 @@
 // 排序相关
-import { ref, computed, Ref } from '@vue/composition-api'
+import { ref, computed, Ref, readonly } from '@vue/composition-api'
 import { isFunction } from 'lodash-es';
 import { SortOptions, SortOrderBy, SortAble, UserSort } from '../types'
 
@@ -67,9 +67,8 @@ export function useSort(): UserSort {
   }
 
   // 通过computed获取值
-  const sortOptionsValue = computed(()=>{
-    return sortOptions.value
-  })
+  const sortOptionsValue = readonly(sortOptions)
+  
 
   return {
     sortOptionsValue,

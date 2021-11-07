@@ -1,6 +1,6 @@
 // 分页器相关
 
-import { computed, Ref, ref  } from '@vue/composition-api'
+import { readonly, Ref, ref  } from '@vue/composition-api'
 import { PaginationOptions, UsePagination} from '../types'
 
 export function usePagination (props: Record<string, any>): UsePagination {
@@ -16,10 +16,8 @@ export function usePagination (props: Record<string, any>): UsePagination {
       paginationOptions.value = newPaginationOptions;
     }
 
-    // 通过computed获取数据
-    const paginationOptionsValue = computed(() => {
-      return paginationOptions.value
-    })
+    // 获取readonly数据
+    const paginationOptionsValue = readonly(paginationOptions)
 
     return {
       paginationOptionsValue,

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 
-import { ComputedRef } from '@vue/composition-api'
+import { ComputedRef, DeepReadonly, Ref } from '@vue/composition-api'
 
 
 // Props 定义在这里
@@ -74,9 +74,11 @@ export type SortAble = {
   sorter?: Function
 }
 
+export type SetSortOptions = (sortable: SortAble | boolean, key: string) => void
+export type SortOptionsValue = DeepReadonly<Ref<SortOptions>>
 export type UserSort = {
-  sortOptionsValue: ComputedRef<SortOptions>
-  setSortOptions: (sortable: SortAble | boolean, key: string) => void
+  sortOptionsValue: SortOptionsValue
+  setSortOptions: SetSortOptions
 }
 
 // 分页相关
@@ -85,10 +87,11 @@ export type PaginationOptions = {
   size: number
 }
 
-
+export type PaginationOptionsChange = (v: PaginationOptions) => void
+export type PaginationOptionsValue = DeepReadonly<Ref<PaginationOptions>>
 export type UsePagination = {
-  paginationOptionsValue: ComputedRef<PaginationOptions>
-  paginationOptionsChange: (v: PaginationOptions) => void
+  paginationOptionsValue: PaginationOptionsValue
+  paginationOptionsChange: PaginationOptionsChange
 }
 
 

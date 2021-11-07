@@ -1,19 +1,21 @@
 
-import { computed, ComputedRef } from '@vue/composition-api'
-import { SortOptions, PaginationOptions, UserDataSource, TableData} from '../types'
+import { computed, DeepReadonly, Ref } from '@vue/composition-api'
+import { SortOptions, PaginationOptionsValue, UserDataSource, TableData} from '../types'
 
-export function useDataSource (props: Record<string, any>, paginationOptions: ComputedRef<PaginationOptions>, sortOptions: ComputedRef<SortOptions>): UserDataSource {
+export function useDataSource (
+  props: Record<string, any>, 
+  paginationOptions: PaginationOptionsValue, 
+  sortOptions: DeepReadonly<Ref<SortOptions>>
+  ): UserDataSource {
 
   // console.trace('useDataSource data', props.data)
   // console.trace('useDataSource paginationOptions', paginationOptions.value)
   // console.trace('useDataSource sortOptions', sortOptions.value)
 
-    let tableData =  props.data;
-
 
     // 排序分页后的结果
     let filterTableData = computed(() => {
-      let templateData: TableData = tableData.slice();
+      let templateData: TableData = props.data.slice();
       if (sortOptions.value.sortRule) {
         templateData.sort((curr, next)=> sortOptions.value.sortRule?.(curr, next))
       }

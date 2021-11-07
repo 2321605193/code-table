@@ -32,6 +32,9 @@ export default defineComponent({
       if (pageList.value < paginationPage.value) {
         paginationPage.value = 1
       }
+      
+      // paginationOptionsValue.value.page = 1
+      // debugger
       paginationOptionsChange({
         size: paginationSize.value,
         page: paginationPage.value
